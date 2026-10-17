@@ -11,8 +11,8 @@ export function LogoMark({ tone = "dark", className }: { tone?: "dark" | "light"
     <img
       src={tone === "light" ? "/brand/logo-mark-white.svg" : "/brand/logo-mark.svg"}
       alt=""
-      width={2094}
-      height={1812}
+      width={2151}
+      height={1795}
       className={cn("h-auto w-11 shrink-0", className)}
     />
   );
