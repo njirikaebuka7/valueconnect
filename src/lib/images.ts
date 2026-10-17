@@ -9,44 +9,45 @@
 const LOCAL = new Set<string>([]);
 
 const u = (id: string) => `https://images.unsplash.com/${id}`;
+const px = (id: number) => `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg`;
 const slot = (name: string, fallback: string) => (LOCAL.has(name) ? `/images/${name}.jpg` : fallback);
 
 export const photos = {
   // Page heroes: wide shots, shown under a navy tint.
   heroHome: slot("hero-home", u("photo-1613490493576-7fde63acd811")),
   heroAbout: slot("hero-about", u("photo-1486406146926-c627a92ad1ab")),
-  heroServices: slot("hero-services", u("photo-1541888946425-d81bb19240f5")),
-  heroValuation: slot("hero-valuation", u("photo-1600596542815-ffad4c1539a9")),
+  heroServices: slot("hero-services", px(32656347)),
+  heroValuation: slot("hero-valuation", px(106399)),
   heroTrack: slot("hero-track", u("photo-1600585154340-be6161a56a0c")),
   heroContact: slot("hero-contact", u("photo-1497366216548-37526070297c")),
-  heroConsultation: slot("hero-consultation", u("photo-1556761175-5973dc0f32e7")),
+  heroConsultation: slot("hero-consultation", px(30688592)),
   ctaBand: slot("cta-band", u("photo-1600596542815-ffad4c1539a9")),
 
   // Section photos.
-  aboutValuer: slot("about-valuer", u("photo-1573497019940-1c28c88b4f3e")),
-  aboutInterior: slot("about-interior", u("photo-1600210492486-724fe5c67fb0")),
-  whyChooseUs: slot("why-choose-us", u("photo-1521791136064-7986c2920216")),
-  aboutTeam: slot("about-team", u("photo-1600880292203-757bb62b4baf")),
-  aboutOffice: slot("about-office", u("photo-1497366811353-6870744d04b2")),
+  aboutValuer: slot("about-valuer", px(5668873)),
+  aboutInterior: slot("about-interior", px(7061396)),
+  whyChooseUs: slot("why-choose-us", px(30688591)),
+  aboutTeam: slot("about-team", px(30689114)),
+  aboutOffice: slot("about-office", px(7534181)),
 
   // "Browse by property type" tiles: portrait.
-  typeApartment: slot("type-apartment", u("photo-1545324418-cc1a3fa10c00")),
-  typeDuplex: slot("type-duplex", u("photo-1564013799919-ab600027ffc6")),
-  typeDetached: slot("type-detached", u("photo-1600585154340-be6161a56a0c")),
-  typeTerrace: slot("type-terrace", u("photo-1580587771525-78b9dba3b914")),
-  typeBungalow: slot("type-bungalow", u("photo-1570129477492-45c003edd2be")),
-  typeLand: slot("type-land", u("photo-1500382017468-9049fed747ef")),
-  typeOffice: slot("type-office", u("photo-1486406146926-c627a92ad1ab")),
-  typeWarehouse: slot("type-warehouse", u("photo-1497366811353-6870744d04b2")),
+  typeApartment: slot("type-apartment", px(20430716)),
+  typeDuplex: slot("type-duplex", px(1115804)),
+  typeDetached: slot("type-detached", px(28122111)),
+  typeTerrace: slot("type-terrace", px(9279740)),
+  typeBungalow: slot("type-bungalow", px(34277704)),
+  typeLand: slot("type-land", px(5668958)),
+  typeOffice: slot("type-office", px(3855622)),
+  typeWarehouse: slot("type-warehouse", px(20507715)),
 } as const;
 
 export const serviceImages = {
-  valuations: slot("service-valuations", u("photo-1573497019940-1c28c88b4f3e")),
-  "property-facility-management": slot("service-facility-management", u("photo-1497366216548-37526070297c")),
-  "estate-agency": slot("service-estate-agency", u("photo-1521791136064-7986c2920216")),
-  "feasibility-viability-appraisal": slot("service-feasibility", u("photo-1600880292203-757bb62b4baf")),
-  "land-administration": slot("service-land-administration", u("photo-1500382017468-9049fed747ef")),
-  auctioneering: slot("service-auctioneering", u("photo-1556761175-5973dc0f32e7")),
+  valuations: slot("service-valuations", px(11174202)),
+  "property-facility-management": slot("service-facility-management", px(8487402)),
+  "estate-agency": slot("service-estate-agency", px(8470845)),
+  "feasibility-viability-appraisal": slot("service-feasibility", px(11174197)),
+  "land-administration": slot("service-land-administration", px(13279686)),
+  auctioneering: slot("service-auctioneering", px(5668484)),
 } as const;
 
 /** Photo pools for the sample listings in src/lib/seed. */
