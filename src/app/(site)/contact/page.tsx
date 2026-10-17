@@ -54,7 +54,7 @@ export default function ContactPage() {
         eyebrow="Get in touch"
         title={
           <>
-            Let&apos;s talk about your <span className="font-accent text-gradient">property</span>
+            Let&apos;s talk about your <span className="font-accent text-gradient">next move</span>
           </>
         }
         description="Whether it's a valuation, a listing or a land title question, a registered professional will get back to you."

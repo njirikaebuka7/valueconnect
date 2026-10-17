@@ -38,7 +38,7 @@ export function Footer() {
             </span>
             <div>
               <h2 className="text-xl font-bold text-white sm:text-2xl">
-                Nigerian property, <span className="font-accent text-aqua-300">without the hype.</span>
+                Nigerian property, <span className="font-accent text-gradient">without the hype.</span>
               </h2>
               <p className="mt-1.5 max-w-xl text-sm text-navy-100/75">
                 Occasional notes on values, rents, land titles and new listings, written by registered valuers. No spam.
@@ -55,7 +55,7 @@ export function Footer() {
             <Logo tone="light" />
             <p className="mt-5 max-w-sm text-sm leading-relaxed">
               A registered firm of Estate Surveyors &amp; Valuers operating under the guidelines of NIESV and ESVARBON.
-              Independent value, <span className="font-accent text-base text-aqua-300">signed and sealed.</span>
+              Independent value, <span className="font-semibold text-aqua-300">signed and sealed.</span>
             </p>
             <div className="mt-5 flex flex-wrap gap-2">
               {site.accreditations.map((a) => (

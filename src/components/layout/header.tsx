@@ -39,7 +39,7 @@ export function Header() {
     <>
       <header
         className={cn(
-          "fixed inset-x-0 top-0 z-50 transition-all duration-300",
+          "header-in fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,box-shadow] duration-300",
           overlay
             ? "bg-gradient-to-b from-navy-950/60 to-transparent"
             : "border-b border-line/70 bg-white/95 shadow-[0_8px_30px_-18px_rgb(4_18_58/0.35)] backdrop-blur-xl",

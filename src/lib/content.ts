@@ -19,7 +19,7 @@ export const services: Service[] = [
     slug: "valuations",
     title: "Valuations",
     short: "Valuations",
-    headline: "Unlock the true worth of your property",
+    headline: "Unlock the true worth of your assets",
     icon: "valuation",
     card: "Independent, inspection-led valuations for lending, financial reporting, insurance, tax, transactions and disputes, signed and sealed.",
     intro: [

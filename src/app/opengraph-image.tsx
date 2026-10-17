@@ -8,9 +8,8 @@ export const contentType = "image/png";
 
 export default async function OpengraphImage() {
   const root = process.cwd();
-  const [oswald, serif, mark] = await Promise.all([
+  const [oswald, mark] = await Promise.all([
     readFile(join(root, "node_modules/@fontsource/oswald/files/oswald-latin-600-normal.woff")),
-    readFile(join(root, "node_modules/@fontsource/instrument-serif/files/instrument-serif-latin-400-italic.woff")),
     readFile(join(root, "public/brand/logo-mark-white.png"), "base64"),
   ]);
 
@@ -40,15 +39,13 @@ export default async function OpengraphImage() {
           </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <div style={{ fontFamily: "Oswald", fontSize: 76, lineHeight: 1.05 }}>The true worth of property,</div>
-          <div style={{ fontFamily: "Instrument Serif", fontSize: 92, color: "#3dd6fb", lineHeight: 1.05 }}>
-            signed and sealed.
-          </div>
+          <div style={{ fontFamily: "Oswald", fontSize: 76, lineHeight: 1.08 }}>Valuation, estate agency &amp; auctioneering</div>
+          <div style={{ fontFamily: "Oswald", fontSize: 76, color: "#3dd6fb", lineHeight: 1.08 }}>you can trust.</div>
         </div>
         <div style={{ display: "flex", gap: 16, fontSize: 24, color: "#d9e4ff" }}>
           <span>ESVARBON-registered</span>
           <span style={{ color: "#3dd6fb" }}>·</span>
-          <span>Valuations · Agency · Facility management</span>
+          <span>Land · Buildings · Plant &amp; machinery</span>
           <span style={{ color: "#3dd6fb" }}>·</span>
           <span>Nationwide</span>
         </div>
@@ -58,7 +55,6 @@ export default async function OpengraphImage() {
       ...size,
       fonts: [
         { name: "Oswald", data: oswald, weight: 600, style: "normal" },
-        { name: "Instrument Serif", data: serif, weight: 400, style: "italic" },
       ],
     },
   );

@@ -25,7 +25,7 @@ export default async function SavedPage() {
             Tap the heart on any listing to keep it here. Your shortlist is stored on this device only.
           </p>
         </div>
-        <SavedProperties properties={properties} />
+        <SavedProperties properties={properties.map((p) => ({ ...p, description: "", features: [], images: p.images.slice(0, 1) }))} />
       </div>
     </div>
   );

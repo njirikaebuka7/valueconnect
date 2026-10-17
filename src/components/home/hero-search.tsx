@@ -78,8 +78,8 @@ export function HeroSearch() {
                 </option>
               ))}
             </SelectPill>
-            <SelectPill label="Property" name="type">
-              <option value="">Any property</option>
+            <SelectPill label="Asset" name="type">
+              <option value="">Any asset</option>
               {valuationAssetTypes.map((t) => (
                 <option key={t} value={t}>
                   {t}

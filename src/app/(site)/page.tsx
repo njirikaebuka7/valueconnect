@@ -3,6 +3,7 @@ import { AboutSnippet } from "@/components/home/about-snippet";
 import { CtaBand } from "@/components/home/cta-band";
 import { FaqSection } from "@/components/home/faq-section";
 import { FeaturedProperties } from "@/components/home/featured-properties";
+import { Intro } from "@/components/home/intro";
 import { Hero } from "@/components/home/hero";
 import { PropertyTypes } from "@/components/home/property-types";
 import { Purposes } from "@/components/home/purposes";
@@ -28,20 +29,44 @@ export default async function HomePage() {
   // Nine cards (three rows on desktop): featured first, topped up with the newest.
   const showcase = [...featured, ...properties.filter((p) => !p.featured)].slice(0, 9);
 
+  // The city tabs are interactive, so their listings travel to the browser:
+  // send only what a card shows.
+  const cityCards = properties.map((p) => ({ ...p, description: "", features: [], images: p.images.slice(0, 1) }));
+
   return (
     <>
+      <Intro />
       <Hero />
       <TrustBand />
       <ValuationSteps />
-      <ServicesShowcase />
-      <FeaturedProperties properties={showcase} />
-      <PropertyTypes properties={properties} />
-      <AboutSnippet />
-      <WhyChooseUs />
-      <Purposes />
-      <WhereWeOperate properties={properties} />
-      <FaqSection limit={6} />
-      <CtaBand />
+      {/* Below the fold: the browser skips layout and paint until each section nears the screen. */}
+      <div className="cv-auto">
+        <ServicesShowcase />
+      </div>
+      <div className="cv-auto">
+        <FeaturedProperties properties={showcase} />
+      </div>
+      <div className="cv-auto">
+        <PropertyTypes properties={properties} />
+      </div>
+      <div className="cv-auto">
+        <AboutSnippet />
+      </div>
+      <div className="cv-auto">
+        <WhyChooseUs />
+      </div>
+      <div className="cv-auto">
+        <Purposes />
+      </div>
+      <div className="cv-auto">
+        <WhereWeOperate properties={cityCards} />
+      </div>
+      <div className="cv-auto">
+        <FaqSection limit={6} />
+      </div>
+      <div className="cv-auto">
+        <CtaBand />
+      </div>
     </>
   );
 }

@@ -16,7 +16,7 @@ export function WhyChooseUs() {
           eyebrow="Why Valueconnect"
           title={
             <>
-              Advice you can take to the <span className="font-accent text-gradient text-[1.08em]">bank</span>
+              Advice you can take to the <span className="font-accent text-gradient">bank</span>
             </>
           }
           description="In a market where asking prices and paperwork can mislead, we inspect, verify and value property on the facts."

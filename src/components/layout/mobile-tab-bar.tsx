@@ -21,7 +21,7 @@ export function MobileTabBar() {
   return (
     <nav
       aria-label="App"
-      className="fixed inset-x-0 bottom-0 z-40 bg-white/95 backdrop-blur-xl border-t border-line/80 pb-safe shadow-[0_-10px_30px_-20px_rgb(4_18_58/0.45)] lg:hidden"
+      className="tabbar-in fixed inset-x-0 bottom-0 z-40 bg-white/95 backdrop-blur-xl border-t border-line/80 pb-safe shadow-[0_-10px_30px_-20px_rgb(4_18_58/0.45)] lg:hidden"
     >
       <ul className="mx-auto grid max-w-md grid-cols-5 px-2">
         {tabs.map(({ href, label, icon: Icon }) => {

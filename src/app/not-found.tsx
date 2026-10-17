@@ -16,7 +16,7 @@ export default function NotFound() {
       <div className="container-x flex flex-1 flex-col items-center justify-center pb-20 text-center">
         <p className="font-brand text-gradient text-[7rem] leading-none font-semibold sm:text-[10rem]">404</p>
         <h1 className="mt-2 text-3xl font-extrabold text-white sm:text-4xl">
-          This page has <span className="font-accent text-aqua-300">moved on</span>
+          This page has <span className="font-accent text-gradient">moved on</span>
         </h1>
         <p className="mt-4 max-w-md text-navy-100/80">
           The page you&apos;re looking for doesn&apos;t exist, or the listing may have been sold or let.

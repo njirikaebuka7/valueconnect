@@ -25,7 +25,7 @@ export function PageHero({
 }) {
   return (
     <section className={cn("relative isolate overflow-hidden bg-navy-950 text-white", className)}>
-      <Photo src={image} alt="" fill preload plainFallback sizes="100vw" className="-z-20 object-cover opacity-55" />
+      <Photo src={image} alt="" fill preload plainFallback sizes="100vw" quality={70} className="-z-20 object-cover opacity-55" />
       <div className="absolute inset-0 -z-10 bg-gradient-to-b from-navy-950/80 via-navy-950/55 to-navy-950/95" />
       <div
         className="absolute inset-0 -z-10 opacity-80"

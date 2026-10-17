@@ -1,11 +1,23 @@
-import "@fontsource-variable/plus-jakarta-sans";
-import "@fontsource/instrument-serif/400-italic.css";
-import "@fontsource/oswald/500.css";
-import "@fontsource/oswald/600.css";
 import "./globals.css";
 import type { Metadata, Viewport } from "next";
+import { Oswald, Plus_Jakarta_Sans } from "next/font/google";
 import { RevealObserver } from "@/components/ui/reveal";
 import { site } from "@/lib/site";
+
+// Self-hosted at build time, preloaded, with metric-matched fallbacks so text doesn't jump.
+const jakarta = Plus_Jakarta_Sans({
+  subsets: ["latin", "latin-ext"],
+  display: "swap",
+  variable: "--font-jakarta",
+});
+
+// Only the logo wordmark uses Oswald: one weight, Latin only.
+const oswald = Oswald({
+  subsets: ["latin"],
+  weight: "600",
+  display: "swap",
+  variable: "--font-oswald",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -45,12 +57,14 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
+const introScript = `(function(){var d=document.documentElement;d.classList.add('js');try{if(sessionStorage.getItem('vc-intro')||matchMedia('(prefers-reduced-motion: reduce)').matches){d.classList.add('intro-done')}else{sessionStorage.setItem('vc-intro','1');setTimeout(function(){d.classList.add('intro-done')},1800)}}catch(e){d.classList.add('intro-done')}})()`;
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en-NG" className="h-full" suppressHydrationWarning>
+    <html lang="en-NG" className={`${jakarta.variable} ${oswald.variable} h-full`} suppressHydrationWarning>
       <head>
-        {/* Marks JS as available before paint so scroll-reveal never flashes. */}
-        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+        {/* Runs before paint: enables scroll-reveal, and plays the brand intro only on the first page of a visit. */}
+        <script dangerouslySetInnerHTML={{ __html: introScript }} />
       </head>
       <body className="flex min-h-full flex-col">
         {children}

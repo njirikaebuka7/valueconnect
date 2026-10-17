@@ -54,7 +54,19 @@ export function SectionHeading({
   );
 }
 
-/** Italic serif accent used inside headings, e.g. "signed and sealed". */
-export function Accent({ children, className }: { children: ReactNode; className?: string }) {
-  return <span className={cn("font-accent text-[1.08em] text-aqua-600", className)}>{children}</span>;
+/** Highlighted words inside a heading, in the brand gradient. Use tone="dark" on navy or photo backgrounds. */
+export function Accent({
+  children,
+  tone = "light",
+  className,
+}: {
+  children: ReactNode;
+  tone?: "light" | "dark";
+  className?: string;
+}) {
+  return (
+    <span className={cn("font-accent", tone === "dark" ? "text-gradient" : "text-gradient-brand", className)}>
+      {children}
+    </span>
+  );
 }

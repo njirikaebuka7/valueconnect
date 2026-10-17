@@ -66,7 +66,7 @@ type Values = WizardInitial & {
 type Errors = Partial<Record<keyof Values | "form", string>>;
 
 const steps = [
-  { label: "Property", icon: Building2 },
+  { label: "Asset", icon: Building2 },
   { label: "Your details", icon: UserRound },
   { label: "Inspection", icon: CalendarDays },
   { label: "Review", icon: ClipboardList },
@@ -338,7 +338,7 @@ export function ValuationWizard({
           </fieldset>
 
           <div className="grid gap-4 sm:grid-cols-2">
-            <Field label="Type of property" name="property_type" error={err("property_type")} required>
+            <Field label="What needs valuing?" name="property_type" error={err("property_type")} required>
               <Select
                 name="property_type"
                 value={values.property_type}
@@ -377,7 +377,7 @@ export function ValuationWizard({
               />
             </Field>
           </div>
-          <Field label="Property address" name="address" error={err("address")} required>
+          <Field label="Address or location" name="address" error={err("address")} required>
             <Input
               name="address"
               value={values.address}
@@ -559,7 +559,7 @@ export function ValuationWizard({
         {/* Step 4: review */}
         <fieldset hidden={step !== 3} className="animate-fade-up space-y-5">
           <StepTitle title="Check and send" subtitle="Review your request. You can edit any section before sending." />
-          <ReviewGroup title="Property" onEdit={() => goTo(0)}>
+          <ReviewGroup title="Asset" onEdit={() => goTo(0)}>
             <ReviewRow label="Purpose" value={values.purpose ? valuationPurposeLabel(values.purpose) : ""} />
             <ReviewRow label="Type" value={values.property_type} />
             <ReviewRow

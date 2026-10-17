@@ -36,7 +36,7 @@ export function PropertyGallery({ images, title, slug }: { images: string[]; tit
               className="relative h-full w-full shrink-0 snap-center"
               aria-label={`Open photo ${i + 1} of ${photos.length}`}
             >
-              <Photo src={src} alt={`${title}, photo ${i + 1}`} fill preload={i === 0} sizes="100vw" className="object-cover" />
+              <Photo src={src} alt={`${title}, photo ${i + 1}`} fill preload={i === 0} sizes="(min-width: 1024px) 1px, 100vw" className="object-cover" />
             </button>
           ))}
         </div>
@@ -97,7 +97,7 @@ export function PropertyGallery({ images, title, slug }: { images: string[]; tit
                 alt={`${title}, photo ${i + 1}`}
                 fill
                 preload={i === 0}
-                sizes={i === 0 ? "50vw" : "25vw"}
+                sizes={i === 0 ? "(max-width: 1023px) 1px, 50vw" : "(max-width: 1023px) 1px, 25vw"}
                 className="object-cover transition duration-700 group-hover:scale-105"
               />
               <span className="absolute inset-0 bg-navy-950/0 transition group-hover:bg-navy-950/10" />

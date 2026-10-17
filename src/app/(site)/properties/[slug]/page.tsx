@@ -171,7 +171,7 @@ export default async function PropertyPage({ params }: Props) {
                     <FileCheck2 className="h-4 w-4" /> Buying or lending against it?
                   </p>
                   <h2 className="mt-2 text-2xl font-extrabold text-white">
-                    Need this property <span className="font-accent text-aqua-300">valued?</span>
+                    Need this property <span className="font-accent text-gradient">valued?</span>
                   </h2>
                   <p className="mt-2 max-w-md text-sm leading-relaxed text-navy-100/80">
                     Get an independent, signed and sealed valuation report from ESVARBON-registered valuers before you

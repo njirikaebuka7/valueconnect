@@ -1,7 +1,5 @@
-"use client";
-
-import Image, { type ImageLoaderProps, type ImageProps } from "next/image";
-import { useState } from "react";
+import { getImageProps, type ImageLoaderProps, type ImageProps } from "next/image";
+import { preload as preloadImage } from "react-dom";
 import { cn } from "@/lib/format";
 
 // Unsplash and Pexels resize on their own CDNs, so those images skip Vercel's optimiser.
@@ -12,33 +10,46 @@ function pexelsLoader({ src, width }: ImageLoaderProps) {
   return `${src}?auto=compress&cs=tinysrgb&w=${width}`;
 }
 
-type PhotoProps = Omit<ImageProps, "src" | "alt"> & {
+type PhotoProps = Omit<ImageProps, "src" | "alt" | "onError" | "onLoad" | "placeholder"> & {
   src?: string | null;
   alt: string;
   /** Hide the house glyph on the fallback, e.g. behind hero text. */
   plainFallback?: boolean;
 };
 
-export function Photo({ src, alt, className, plainFallback, ...props }: PhotoProps) {
-  const [failed, setFailed] = useState(false);
-  if (!src || failed) return <PhotoFallback className={className} fill={Boolean(props.fill)} plain={plainFallback} />;
+/**
+ * Optimised responsive image rendered as a plain <img> (via getImageProps), so
+ * it costs nothing to hydrate. Works in server and client components alike.
+ */
+export function Photo({ src, alt, className, plainFallback, preload, ...rest }: PhotoProps) {
+  if (!src) return <PhotoFallback className={className} fill={Boolean(rest.fill)} plain={plainFallback} />;
 
   const unsplash = src.startsWith("https://images.unsplash.com/");
   const pexels = src.startsWith("https://images.pexels.com/");
-  const cdn = unsplash || pexels;
-  const optimisable = cdn || src.startsWith("/") || /\.supabase\.co\/storage\/v1\/object\/public\//.test(src);
+  const optimisable =
+    unsplash || pexels || src.startsWith("/") || /\.supabase\.co\/storage\/v1\/object\/public\//.test(src);
 
-  return (
-    <Image
-      src={src}
-      alt={alt}
-      loader={unsplash ? unsplashLoader : pexels ? pexelsLoader : undefined}
-      unoptimized={!optimisable || src.startsWith("data:") || src.startsWith("blob:")}
-      onError={() => setFailed(true)}
-      className={className}
-      {...props}
-    />
-  );
+  const { props } = getImageProps({
+    src,
+    alt,
+    className,
+    preload,
+    loader: unsplash ? unsplashLoader : pexels ? pexelsLoader : undefined,
+    unoptimized: !optimisable || src.startsWith("data:") || src.startsWith("blob:"),
+    ...rest,
+  });
+
+  if (preload) {
+    preloadImage(props.src, {
+      as: "image",
+      imageSrcSet: props.srcSet,
+      imageSizes: props.sizes,
+      fetchPriority: "high",
+    });
+  }
+
+  // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text
+  return <img {...props} />;
 }
 
 export function PhotoFallback({ className, fill, plain }: { className?: string; fill?: boolean; plain?: boolean }) {

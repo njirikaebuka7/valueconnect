@@ -10,6 +10,8 @@ const nextConfig: NextConfig = {
     },
   },
   images: {
+    // AVIF first (smallest), WebP for older browsers.
+    formats: ["image/avif", "image/webp"],
     qualities: [70, 75, 85],
     remotePatterns: [
       { protocol: "https", hostname: "images.unsplash.com" },

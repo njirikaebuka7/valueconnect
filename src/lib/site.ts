@@ -3,7 +3,7 @@ export const site = {
   shortName: "Valueconnect",
   tagline: "Estate Surveyors & Valuers",
   description:
-    "ESVARBON-registered Estate Surveyors & Valuers in Lagos delivering bank-ready property valuations, estate agency, facility management, land administration and auctioneering across Nigeria.",
+    "ESVARBON-registered Estate Surveyors & Valuers in Lagos: valuations of land, buildings, plant & machinery and other assets, plus estate agency, facility management, land administration and auctioneering across Nigeria.",
   url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://valueconnect.com.ng").replace(/\/$/, ""),
   address: {
     street: "17, Musa Yar'adua Street",

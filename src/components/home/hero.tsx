@@ -16,6 +16,7 @@ export function Hero() {
         preload
         plainFallback
         sizes="100vw"
+        quality={70}
         className="animate-hero-zoom -z-20 object-cover"
       />
       <div className="absolute inset-0 -z-10 bg-gradient-to-b from-navy-950/80 via-navy-950/45 to-navy-950/95" />
@@ -30,24 +31,25 @@ export function Hero() {
       />
 
       <div className="container-x relative flex min-h-[100svh] flex-col items-center justify-center pt-28 pb-12 text-center sm:pt-32 lg:min-h-[94vh] lg:pb-16">
-        <p className="glass animate-fade-up inline-flex items-center gap-2 rounded-full py-1.5 pr-4 pl-1.5 text-[0.7rem] font-bold tracking-[0.14em] text-aqua-100 uppercase sm:text-xs">
+        <p className="glass hero-in inline-flex items-center gap-2 rounded-full py-1.5 pr-4 pl-1.5 text-[0.7rem] font-bold tracking-[0.14em] text-aqua-100 uppercase sm:text-xs">
           <span className="grid h-6 w-6 place-items-center rounded-full bg-aqua-500 text-navy-950">
             <ShieldCheck className="h-3.5 w-3.5" />
           </span>
           ESVARBON-registered · Nationwide
         </p>
 
-        <h1 className="animate-fade-up mt-6 max-w-5xl text-[2.6rem] leading-[1.02] font-extrabold tracking-[-0.035em] text-white [animation-delay:80ms] sm:text-6xl lg:text-[5.25rem]">
-          The true worth of property,{" "}
-          <span className="font-accent text-gradient block pb-2 text-[1.08em] sm:inline">signed and sealed.</span>
+        <h1 className="hero-rise mt-6 max-w-5xl text-[2.6rem] leading-[1.02] font-extrabold tracking-[-0.035em] text-balance text-white sm:text-6xl lg:text-[5.25rem]" style={{ "--d": "80ms" } as React.CSSProperties}>
+          Valuation, estate agency &amp; auctioneering{" "}
+          <span className="font-accent text-gradient">you can trust.</span>
         </h1>
 
-        <p className="animate-fade-up mt-5 max-w-2xl text-base leading-relaxed text-navy-100/85 [animation-delay:160ms] sm:text-lg">
-          Independent, inspection-led valuations from registered Estate Surveyors &amp; Valuers, built for lenders,
-          boards, courts and families to rely on.
+        <p className="hero-in mt-5 max-w-2xl text-base leading-relaxed text-navy-100/85 sm:text-lg" style={{ "--d": "160ms" } as React.CSSProperties}>
+          ESVARBON-registered Estate Surveyors &amp; Valuers valuing land, buildings, plant &amp; machinery and other
+          assets, with facility management, land administration and feasibility advice under one roof, anywhere in
+          Nigeria.
         </p>
 
-        <div className="animate-fade-up mt-8 flex w-full flex-col gap-3 [animation-delay:240ms] sm:w-auto sm:flex-row">
+        <div className="hero-in mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row" style={{ "--d": "240ms" } as React.CSSProperties}>
           <ButtonLink href="/valuation" variant="accent" size="lg">
             Request a valuation <ArrowRight className="h-4 w-4" />
           </ButtonLink>
@@ -61,11 +63,11 @@ export function Hero() {
           </a>
         </div>
 
-        <div className="animate-fade-up mt-12 w-full [animation-delay:320ms] sm:mt-14">
+        <div className="hero-in mt-12 w-full sm:mt-14" style={{ "--d": "320ms" } as React.CSSProperties}>
           <HeroSearch />
         </div>
 
-        <ul className="animate-fade-up mt-7 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-semibold text-navy-100/80 [animation-delay:400ms] sm:text-sm">
+        <ul className="hero-in mt-7 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-semibold text-navy-100/80 sm:text-sm" style={{ "--d": "400ms" } as React.CSSProperties}>
           {["Bank-ready reports", "Title reviewed, not assumed", "Written fee before work starts"].map((t) => (
             <li key={t} className="flex items-center gap-1.5">
               <BadgeCheck className="h-4 w-4 text-aqua-400" />

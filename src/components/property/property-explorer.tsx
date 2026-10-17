@@ -10,8 +10,7 @@ import {
   SlidersHorizontal,
   X,
 } from "lucide-react";
-import { useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import { ButtonLink, buttonClass } from "@/components/ui/button";
 import { cn, formatNairaCompact } from "@/lib/format";
 import { featuredCities, listingTypeLabels, propertyTypeLabels } from "@/lib/options";
@@ -131,20 +130,31 @@ function applyFilters(all: Property[], f: Filters) {
   return list;
 }
 
+const noopSubscribe = () => () => {};
+
 export function PropertyExplorer({ properties }: { properties: Property[] }) {
-  const searchParams = useSearchParams();
-  const [filters, setFilters] = useState<Filters>(() => readFilters(new URLSearchParams(searchParams.toString())));
+  // The page is static, so the server renders the unfiltered list (cards and
+  // photos are in the first HTML). Filters from the link are applied as soon as
+  // the browser takes over: null on the server and during hydration.
+  const urlSearch = useSyncExternalStore(noopSubscribe, () => window.location.search, () => null);
+  const [filters, setFilters] = useState<Filters>(() => readFilters(new URLSearchParams()));
+  const [synced, setSynced] = useState(false);
+  if (!synced && urlSearch !== null) {
+    setSynced(true);
+    if (urlSearch) setFilters(readFilters(new URLSearchParams(urlSearch)));
+  }
   const [view, setView] = useState<"grid" | "list">("grid");
   const [sheetOpen, setSheetOpen] = useState(false);
 
   // Keep the URL shareable without a server round trip.
   useEffect(() => {
+    if (!synced) return;
     const qs = toQuery(filters);
     const url = qs ? `/properties?${qs}` : "/properties";
     if (url !== `${window.location.pathname}${window.location.search}`) {
       window.history.replaceState(null, "", url);
     }
-  }, [filters]);
+  }, [filters, synced]);
 
   useEffect(() => {
     document.body.style.overflow = sheetOpen ? "hidden" : "";

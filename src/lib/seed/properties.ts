@@ -1,4 +1,3 @@
-import { img, local } from "../images";
 import type { Property } from "../types";
 
 /**
@@ -9,8 +8,9 @@ import type { Property } from "../types";
 type Seed = Omit<Property, "id" | "createdAt" | "updatedAt" | "published" | "verified" | "status"> &
   Partial<Pick<Property, "status" | "verified">>;
 
-const I = img.interiors;
-const C = img.commercial;
+/** Photos live in public/images/properties as <key>-1.jpg … <key>-n.jpg; 1 is the cover. */
+const gallery = (key: string, count: number) =>
+  Array.from({ length: count }, (_, i) => `/images/properties/${key}-${i + 1}.jpg`);
 
 const seeds: Seed[] = [
   {
@@ -34,7 +34,7 @@ const seeds: Seed[] = [
     description:
       "A contemporary family home on a quiet, tree-lined close minutes from Bourdillon Road. Double-volume living areas open onto a landscaped garden and swimming pool, with a chef's kitchen, family lounge, cinema room and a two-room BQ. Title has been verified by our land administration team and a current valuation report is available to serious buyers.",
     features: ["Swimming pool", "24/7 power", "Fitted kitchen", "BQ (boys' quarters)", "Cinema room", "CCTV", "Borehole", "Smart home"],
-    images: [local("hero-valuation"), local("about-interior"), I[0], I[1]],
+    images: gallery("ikoyi-pool-duplex", 4),
     featured: true,
   },
   {
@@ -58,7 +58,7 @@ const seeds: Seed[] = [
     description:
       "Well-finished terrace duplex in a serviced mini-estate of six units, close to Admiralty Way's shops and restaurants. All rooms en-suite, open-plan living and dining, a fitted kitchen with pantry, and a one-room BQ. Estate amenities include shared power, water treatment and round-the-clock security.",
     features: ["24/7 power", "Water treatment", "Fitted kitchen", "BQ (boys' quarters)", "Gated estate", "Security post"],
-    images: [local("type-terrace"), local("about-interior"), I[2]],
+    images: gallery("lekki-terrace-duplex", 4),
     featured: true,
   },
   {
@@ -82,7 +82,7 @@ const seeds: Seed[] = [
     description:
       "Serviced three-bedroom apartment in a modern block a short walk from the Oniru beachfront. Floor-to-ceiling glazing, a fitted kitchen, a gym and a rooftop lounge. Service charge covers power, water, security and facility management by our in-house team.",
     features: ["Serviced", "Gym", "Elevator", "Rooftop terrace", "24/7 power", "Ample parking"],
-    images: [local("type-apartment"), local("about-interior"), I[5]],
+    images: gallery("oniru-luxury-apartment", 4),
     featured: true,
   },
   {
@@ -106,7 +106,7 @@ const seeds: Seed[] = [
     description:
       "A rare lagoon-front residence with a private jetty, infinity pool and expansive entertainment terraces. Six en-suite bedrooms, a home office, a gym and staff quarters. Viewing strictly by appointment; proof of funds required.",
     features: ["Waterfront", "Swimming pool", "Gym", "Elevator", "Smart home", "24/7 power", "CCTV", "Garden"],
-    images: [local("type-detached"), local("hero-valuation"), I[1]],
+    images: gallery("banana-island-mansion", 4),
     featured: true,
   },
   {
@@ -130,7 +130,7 @@ const seeds: Seed[] = [
     description:
       "Stylish, fully furnished apartment for business and leisure stays. Fast Wi-Fi, smart TV, uninterrupted power and weekly housekeeping. Minimum stay of two nights.",
     features: ["Serviced", "24/7 power", "Fitted kitchen", "CCTV", "Security post"],
-    images: [local("about-interior"), local("type-apartment"), I[4]],
+    images: gallery("ikate-shortlet", 3),
     featured: false,
   },
   {
@@ -154,7 +154,7 @@ const seeds: Seed[] = [
     description:
       "Dry, fenced plot in a fast-developing gated estate with tarred roads and drainage. Survey plan and excision documents have been searched at the Lagos State Land Registry. Ideal for a detached home or two semi-detached units.",
     features: ["Gated estate", "Security post"],
-    images: [local("type-land"), local("service-land-administration")],
+    images: gallery("lekki-scheme2-plot", 4),
     featured: true,
   },
   {
@@ -178,7 +178,7 @@ const seeds: Seed[] = [
     description:
       "Elegant detached duplex in Abuja's most prestigious district, close to embassies and Transcorp Hilton. Large reception rooms, a family lounge, a study and a self-contained guest chalet, set on generous landscaped grounds.",
     features: ["Garden", "Study", "BQ (boys' quarters)", "24/7 power", "Borehole", "CCTV"],
-    images: [local("type-duplex"), local("about-interior"), I[5]],
+    images: gallery("maitama-detached-duplex", 4),
     featured: true,
   },
   {
@@ -202,7 +202,7 @@ const seeds: Seed[] = [
     description:
       "New-build semi-detached home with views across the Asokoro hills. Contemporary finishes, a fitted kitchen with island, and a private garden. Part of a secure estate with a central power plant.",
     features: ["Gated estate", "24/7 power", "Fitted kitchen", "Garden", "Water treatment"],
-    images: [local("type-detached"), local("about-interior"), I[2]],
+    images: gallery("guzape-semi-detached", 4),
     featured: true,
   },
   {
@@ -226,7 +226,7 @@ const seeds: Seed[] = [
     description:
       "Spacious bungalow on a quiet street with a large compound, all rooms en-suite and a guest toilet. Close to shops, schools and the Gwarinpa main road.",
     features: ["Ample parking", "Borehole", "Garden", "Security post"],
-    images: [local("type-bungalow"), I[4]],
+    images: gallery("gwarinpa-bungalow", 3),
     featured: false,
   },
   {
@@ -250,7 +250,7 @@ const seeds: Seed[] = [
     description:
       "Open-plan office floor in a Grade A tower on Adeola Odeku Street, with raised floors, central air-conditioning, high-speed lifts and dedicated parking. Managed by our facility management team; service charge covers diesel, security and cleaning.",
     features: ["Elevator", "24/7 power", "Ample parking", "CCTV", "Serviced"],
-    images: [local("type-office"), local("about-office"), local("hero-about")],
+    images: gallery("vi-grade-a-office", 4),
     featured: true,
   },
   {
@@ -274,7 +274,7 @@ const seeds: Seed[] = [
     description:
       "Solid detached duplex on a large plot in the leafy Old GRA, ideal for a family home or a corporate guest house. Recently renovated with new roofing, plumbing and a fitted kitchen.",
     features: ["Garden", "BQ (boys' quarters)", "Borehole", "Ample parking", "Inverter backup"],
-    images: [local("type-duplex"), I[5], I[3]],
+    images: gallery("old-gra-ph-duplex", 4),
     featured: true,
   },
   {
@@ -298,7 +298,7 @@ const seeds: Seed[] = [
     description:
       "High-eaves warehouse with loading bays, a mezzanine office and a large secure yard for trucks. Within the Trans-Amadi industrial layout with easy access to the port and the East-West Road.",
     features: ["Ample parking", "Security post", "CCTV"],
-    images: [local("type-warehouse"), C[2]],
+    images: gallery("trans-amadi-warehouse", 3),
     featured: false,
   },
   {
@@ -322,7 +322,7 @@ const seeds: Seed[] = [
     description:
       "Modern detached home in Enugu's most sought-after neighbourhood, with a spacious living room, a family lounge upstairs, a fitted kitchen and a one-room BQ.",
     features: ["BQ (boys' quarters)", "Fitted kitchen", "Borehole", "Garden", "Inverter backup"],
-    images: [local("type-detached"), I[0]],
+    images: gallery("enugu-detached-house", 3),
     featured: false,
   },
   {
@@ -346,7 +346,7 @@ const seeds: Seed[] = [
     description:
       "Generously proportioned family duplex in the heart of Bodija Estate, a short drive from the University of Ibadan. Large compound with mature trees and room to extend.",
     features: ["Garden", "Ample parking", "Borehole", "BQ (boys' quarters)"],
-    images: [local("type-bungalow"), I[2]],
+    images: gallery("bodija-duplex", 3),
     featured: false,
   },
   {
@@ -370,7 +370,7 @@ const seeds: Seed[] = [
     description:
       "Bright three-bedroom flat in a boutique block of eight, minutes from the airport and Allen Avenue. Fitted kitchen, guest toilet and shared generator and water treatment.",
     features: ["Fitted kitchen", "24/7 power", "Water treatment", "Security post"],
-    images: [local("type-apartment"), I[5], I[4]],
+    images: gallery("ikeja-gra-apartment", 3),
     featured: false,
   },
   {
@@ -394,7 +394,7 @@ const seeds: Seed[] = [
     description:
       "Corner-piece commercial plot with direct frontage onto the Lekki-Epe Expressway, suited to a showroom, filling station or mixed-use development. Feasibility and viability appraisal available on request.",
     features: [],
-    images: [local("type-land"), local("hero-services")],
+    images: gallery("lekki-epe-commercial-land", 3),
     featured: false,
   },
 ];

@@ -23,7 +23,7 @@ export default async function TrackPage({ searchParams }: Props) {
         image={photos.heroTrack}
         title={
           <>
-            Track your <Accent className="text-aqua-300">valuation</Accent>
+            Track your <Accent tone="dark">valuation</Accent>
           </>
         }
         description="Enter the reference from your confirmation and the email you used. You'll see your quote, inspection date and every update from our valuers."

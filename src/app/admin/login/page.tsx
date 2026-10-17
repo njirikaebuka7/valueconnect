@@ -21,7 +21,7 @@ export default function AdminLoginPage() {
             Staff portal
           </p>
           <h1 className="mt-4 text-4xl leading-tight font-bold text-white">
-            Every request, listing and client, <span className="font-accent text-aqua-300">in one place.</span>
+            Every request, listing and client, <span className="font-accent text-gradient">in one place.</span>
           </h1>
           <p className="mt-4 text-sm leading-relaxed text-navy-100/75">
             Review valuation requests, send fee quotes, book inspections and keep listings up to date from any device.

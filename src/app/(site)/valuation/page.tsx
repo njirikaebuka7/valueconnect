@@ -88,10 +88,10 @@ export default async function ValuationPage({ searchParams }: Props) {
         image={photos.heroValuation}
         title={
           <>
-            Know what your property is <Accent className="text-aqua-300">truly worth</Accent>
+            Know what your assets are <Accent tone="dark">truly worth</Accent>
           </>
         }
-        description="Independent, inspection-led valuations from ESVARBON-registered Estate Surveyors & Valuers, built for lenders, boards, courts and families to rely on."
+        description="Independent, inspection-led valuations of land, buildings, plant & machinery and other assets, signed by ESVARBON-registered Estate Surveyors & Valuers."
       />
 
       <section className="relative z-10 -mt-10 pb-24 sm:-mt-14 lg:pb-32">
