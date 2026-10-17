@@ -6,7 +6,7 @@ import { WhatsAppIcon } from "@/components/ui/social-icons";
 import { ValuationWizard, type WizardInitial, type WizardProperty } from "@/components/valuation/valuation-wizard";
 import { requiredDocuments, valuationSteps } from "@/lib/content";
 import { getPropertyBySlug } from "@/lib/data/properties";
-import { img } from "@/lib/images";
+import { photos } from "@/lib/images";
 import { nigerianStates, valuationAssetTypes, valuationPurposes } from "@/lib/options";
 import { site, whatsappLink } from "@/lib/site";
 import type { PropertyType } from "@/lib/types";
@@ -85,7 +85,7 @@ export default async function ValuationPage({ searchParams }: Props) {
     <>
       <PageHero
         eyebrow="Request a valuation"
-        image={img.hero[1]}
+        image={photos.heroValuation}
         title={
           <>
             Know what your property is <Accent className="text-aqua-300">truly worth</Accent>

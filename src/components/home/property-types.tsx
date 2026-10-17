@@ -2,19 +2,19 @@ import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { Photo } from "@/components/ui/photo";
 import { Accent, SectionHeading } from "@/components/ui/section-heading";
-import { img } from "@/lib/images";
+import { photos } from "@/lib/images";
 import { propertyTypeLabels } from "@/lib/options";
 import type { Property, PropertyType } from "@/lib/types";
 
 const tiles: { type: PropertyType; image: string; label?: string }[] = [
-  { type: "apartment", image: img.houses[11] },
-  { type: "duplex", image: img.houses[3] },
-  { type: "detached", image: img.houses[0] },
-  { type: "terrace", image: img.houses[5] },
-  { type: "bungalow", image: img.houses[7] },
-  { type: "land", image: img.land[0], label: "Land & plots" },
-  { type: "office", image: img.commercial[0], label: "Offices" },
-  { type: "warehouse", image: img.commercial[2], label: "Warehouses" },
+  { type: "apartment", image: photos.typeApartment },
+  { type: "duplex", image: photos.typeDuplex },
+  { type: "detached", image: photos.typeDetached },
+  { type: "terrace", image: photos.typeTerrace },
+  { type: "bungalow", image: photos.typeBungalow },
+  { type: "land", image: photos.typeLand, label: "Land & plots" },
+  { type: "office", image: photos.typeOffice, label: "Offices" },
+  { type: "warehouse", image: photos.typeWarehouse, label: "Warehouses" },
 ];
 
 export function PropertyTypes({ properties }: { properties: Property[] }) {

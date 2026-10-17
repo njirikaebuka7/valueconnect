@@ -3,13 +3,13 @@ import type { ReactNode } from "react";
 import { ButtonLink } from "@/components/ui/button";
 import { Photo } from "@/components/ui/photo";
 import { WhatsAppIcon } from "@/components/ui/social-icons";
-import { img } from "@/lib/images";
+import { photos } from "@/lib/images";
 import { whatsappLink } from "@/lib/site";
 
 export function CtaBand({
   title,
   description,
-  image = img.hero[1],
+  image = photos.ctaBand,
 }: {
   title?: ReactNode;
   description?: string;

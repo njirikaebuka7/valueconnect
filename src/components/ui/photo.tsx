@@ -4,9 +4,12 @@ import Image, { type ImageLoaderProps, type ImageProps } from "next/image";
 import { useState } from "react";
 import { cn } from "@/lib/format";
 
-// Unsplash resizes on its own CDN, so those images skip Vercel's optimiser.
+// Unsplash and Pexels resize on their own CDNs, so those images skip Vercel's optimiser.
 function unsplashLoader({ src, width, quality }: ImageLoaderProps) {
   return `${src}?auto=format&fit=crop&w=${width}&q=${quality ?? 75}`;
+}
+function pexelsLoader({ src, width }: ImageLoaderProps) {
+  return `${src}?auto=compress&cs=tinysrgb&w=${width}`;
 }
 
 type PhotoProps = Omit<ImageProps, "src" | "alt"> & {
@@ -21,13 +24,15 @@ export function Photo({ src, alt, className, plainFallback, ...props }: PhotoPro
   if (!src || failed) return <PhotoFallback className={className} fill={Boolean(props.fill)} plain={plainFallback} />;
 
   const unsplash = src.startsWith("https://images.unsplash.com/");
-  const optimisable = unsplash || src.startsWith("/") || /\.supabase\.co\/storage\/v1\/object\/public\//.test(src);
+  const pexels = src.startsWith("https://images.pexels.com/");
+  const cdn = unsplash || pexels;
+  const optimisable = cdn || src.startsWith("/") || /\.supabase\.co\/storage\/v1\/object\/public\//.test(src);
 
   return (
     <Image
       src={src}
       alt={alt}
-      loader={unsplash ? unsplashLoader : undefined}
+      loader={unsplash ? unsplashLoader : pexels ? pexelsLoader : undefined}
       unoptimized={!optimisable || src.startsWith("data:") || src.startsWith("blob:")}
       onError={() => setFailed(true)}
       className={className}

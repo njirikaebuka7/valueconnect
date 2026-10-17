@@ -7,7 +7,7 @@ import { PageHero } from "@/components/layout/page-hero";
 import { Photo } from "@/components/ui/photo";
 import { Accent } from "@/components/ui/section-heading";
 import { coreValues, mission, vision } from "@/lib/content";
-import { img } from "@/lib/images";
+import { photos } from "@/lib/images";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -28,7 +28,7 @@ export default function AboutPage() {
           </>
         }
         description="A registered firm of Estate Surveyors & Valuers helping owners, investors, lenders and institutions make property decisions on the facts."
-        image={img.commercial[0]}
+        image={photos.heroAbout}
       />
 
       <section className="py-20 sm:py-24">
@@ -64,11 +64,11 @@ export default function AboutPage() {
           <div data-reveal style={{ "--reveal-delay": "120ms" } as React.CSSProperties} className="lg:col-span-6">
             <div className="grid grid-cols-5 gap-4">
               <div className="relative col-span-3 aspect-[3/4] overflow-hidden rounded-[2rem] bg-navy-950 shadow-lift">
-                <Photo src={img.people[0]} alt="Valueconnect estate surveyor" fill sizes="(min-width: 1024px) 340px, 55vw" className="object-cover" />
+                <Photo src={photos.aboutTeam} alt="The Valueconnect team" fill sizes="(min-width: 1024px) 340px, 55vw" className="object-cover" />
               </div>
               <div className="col-span-2 flex flex-col gap-4 pt-10">
                 <div className="relative aspect-square overflow-hidden rounded-3xl bg-navy-950 shadow-card">
-                  <Photo src={img.houses[0]} alt="" fill sizes="220px" className="object-cover" />
+                  <Photo src={photos.aboutOffice} alt="" fill sizes="220px" className="object-cover" />
                 </div>
                 <div className="bg-navy-mesh rounded-3xl p-4 text-white shadow-card">
                   <p className="font-brand text-2xl font-semibold">ESVARBON</p>

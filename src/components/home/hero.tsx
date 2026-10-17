@@ -2,14 +2,14 @@ import { ArrowRight, BadgeCheck, FileCheck2, ShieldCheck } from "lucide-react";
 import { ButtonLink } from "@/components/ui/button";
 import { Photo } from "@/components/ui/photo";
 import { WhatsAppIcon } from "@/components/ui/social-icons";
-import { img } from "@/lib/images";
+import { photos } from "@/lib/images";
 import { whatsappLink } from "@/lib/site";
 import { HeroSearch } from "./hero-search";
 
 export function Hero() {
   return (
     <section className="relative isolate overflow-hidden bg-navy-950 text-white">
-      <Photo src={img.hero[0]} alt="" fill preload plainFallback sizes="100vw" className="-z-20 object-cover opacity-70" />
+      <Photo src={photos.heroHome} alt="" fill preload plainFallback sizes="100vw" className="-z-20 object-cover opacity-70" />
       <div className="absolute inset-0 -z-10 bg-gradient-to-b from-navy-950/85 via-navy-950/55 to-navy-950" />
       <div
         aria-hidden

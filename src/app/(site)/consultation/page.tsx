@@ -4,7 +4,7 @@ import { ConsultationForm } from "@/components/forms/consultation-form";
 import { PageHero } from "@/components/layout/page-hero";
 import { WhatsAppIcon } from "@/components/ui/social-icons";
 import { services } from "@/lib/content";
-import { img } from "@/lib/images";
+import { photos } from "@/lib/images";
 import { site, whatsappLink } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -34,7 +34,7 @@ export default async function ConsultationPage({ searchParams }: { searchParams:
           </>
         }
         description="At our Victoria Island office, by phone or on a video call. Pick a time that suits you and we'll confirm."
-        image={img.people[3]}
+        image={photos.heroConsultation}
       />
 
       <section className="py-14 sm:py-20">

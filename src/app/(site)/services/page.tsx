@@ -8,7 +8,7 @@ import { ButtonLink } from "@/components/ui/button";
 import { Photo } from "@/components/ui/photo";
 import { services } from "@/lib/content";
 import { cn } from "@/lib/format";
-import { img, serviceImages } from "@/lib/images";
+import { photos, serviceImages } from "@/lib/images";
 
 export const metadata: Metadata = {
   title: "Our services",
@@ -28,7 +28,7 @@ export default function ServicesPage() {
           </>
         }
         description="Six services delivered by registered Estate Surveyors & Valuers, from a single valuation to managing an entire portfolio."
-        image={img.commercial[1]}
+        image={photos.heroServices}
       >
         <nav aria-label="Services" className="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4 sm:mx-auto sm:flex-wrap sm:justify-center">
           {services.map((s) => (

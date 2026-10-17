@@ -2,7 +2,7 @@ import { BadgeCheck, CalendarCheck, FileSearch, FileText, Scale, ShieldCheck } f
 import { Photo } from "@/components/ui/photo";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { whyChooseUs } from "@/lib/content";
-import { img } from "@/lib/images";
+import { photos } from "@/lib/images";
 
 const icons = [ShieldCheck, Scale, BadgeCheck, FileSearch, FileText, CalendarCheck];
 
@@ -24,7 +24,7 @@ export function WhyChooseUs() {
 
         <div className="mt-12 grid gap-6 lg:grid-cols-12">
           <div data-reveal className="relative min-h-80 overflow-hidden rounded-[2rem] bg-navy-900 lg:col-span-5">
-            <Photo src={img.people[2]} alt="Valuer presenting a report to clients" fill sizes="(min-width: 1024px) 500px, 92vw" className="object-cover opacity-90" />
+            <Photo src={photos.whyChooseUs} alt="Valuer presenting a report to clients" fill sizes="(min-width: 1024px) 500px, 92vw" className="object-cover opacity-90" />
             <div className="absolute inset-0 bg-gradient-to-t from-navy-950/90 via-navy-950/10 to-transparent" />
             <div className="glass absolute inset-x-4 bottom-4 rounded-2xl p-5">
               <p className="text-[0.65rem] font-bold tracking-[0.16em] text-aqua-200 uppercase">Our promise</p>

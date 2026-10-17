@@ -5,7 +5,7 @@ import { ContactForm } from "@/components/forms/contact-form";
 import { FaqSection } from "@/components/home/faq-section";
 import { PageHero } from "@/components/layout/page-hero";
 import { WhatsAppIcon } from "@/components/ui/social-icons";
-import { img } from "@/lib/images";
+import { photos } from "@/lib/images";
 import { site, whatsappLink } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -58,7 +58,7 @@ export default function ContactPage() {
           </>
         }
         description="Whether it's a valuation, a listing or a land title question, a registered professional will get back to you."
-        image={img.city[0]}
+        image={photos.heroContact}
       />
 
       <section className="relative z-10 -mt-10 sm:-mt-14">

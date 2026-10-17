@@ -3,7 +3,7 @@ import { ButtonLink } from "@/components/ui/button";
 import { Photo } from "@/components/ui/photo";
 import { Accent } from "@/components/ui/section-heading";
 import { coreValues, mission, vision } from "@/lib/content";
-import { img } from "@/lib/images";
+import { photos } from "@/lib/images";
 
 export function AboutSnippet() {
   const cards = [
@@ -22,11 +22,11 @@ export function AboutSnippet() {
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <div data-reveal className="relative">
             <div className="relative aspect-[5/4] overflow-hidden rounded-[2rem] bg-navy-950 shadow-lift">
-              <Photo src={img.people[1]} alt="Valueconnect valuer reviewing a property file" fill sizes="(min-width: 1024px) 560px, 92vw" className="object-cover" />
+              <Photo src={photos.aboutValuer} alt="Valueconnect valuer reviewing a property file" fill sizes="(min-width: 1024px) 560px, 92vw" className="object-cover" />
             </div>
             <div className="absolute -right-2 -bottom-8 hidden w-44 overflow-hidden rounded-3xl border-[6px] border-white bg-navy-950 shadow-lift sm:block sm:w-56">
               <div className="relative aspect-square">
-                <Photo src={img.interiors[0]} alt="" fill sizes="224px" className="object-cover" />
+                <Photo src={photos.aboutInterior} alt="" fill sizes="224px" className="object-cover" />
               </div>
             </div>
             <div className="glass-light absolute top-5 left-5 flex items-center gap-3 rounded-2xl px-4 py-3 shadow-card">

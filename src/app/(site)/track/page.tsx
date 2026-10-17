@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { PageHero } from "@/components/layout/page-hero";
 import { Accent } from "@/components/ui/section-heading";
 import { TrackForm } from "@/components/valuation/track-form";
-import { img } from "@/lib/images";
+import { photos } from "@/lib/images";
 
 export const metadata: Metadata = {
   title: "Track your valuation",
@@ -20,7 +20,7 @@ export default async function TrackPage({ searchParams }: Props) {
     <>
       <PageHero
         eyebrow="Request tracker"
-        image={img.hero[2]}
+        image={photos.heroTrack}
         title={
           <>
             Track your <Accent className="text-aqua-300">valuation</Accent>

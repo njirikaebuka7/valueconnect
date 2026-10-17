@@ -1,16 +1,56 @@
 /**
- * Stock photography (Unsplash, free licence) used until Valueconnect's own
- * photos are uploaded through the admin. Property photos uploaded by admins
- * live in Supabase Storage instead.
+ * Every photo on the site, by slot. docs/images.md describes what each slot
+ * should show and its size.
+ *
+ * A slot uses public/images/<name>.jpg once its name is listed in LOCAL;
+ * until then it falls back to a free stock photo. Property photos uploaded
+ * through the admin live in Supabase Storage instead.
  */
-const u = (id: string) => `https://images.unsplash.com/${id}`;
+const LOCAL = new Set<string>([]);
 
+const u = (id: string) => `https://images.unsplash.com/${id}`;
+const slot = (name: string, fallback: string) => (LOCAL.has(name) ? `/images/${name}.jpg` : fallback);
+
+export const photos = {
+  // Page heroes: wide shots, shown under a navy tint.
+  heroHome: slot("hero-home", u("photo-1613490493576-7fde63acd811")),
+  heroAbout: slot("hero-about", u("photo-1486406146926-c627a92ad1ab")),
+  heroServices: slot("hero-services", u("photo-1541888946425-d81bb19240f5")),
+  heroValuation: slot("hero-valuation", u("photo-1600596542815-ffad4c1539a9")),
+  heroTrack: slot("hero-track", u("photo-1600585154340-be6161a56a0c")),
+  heroContact: slot("hero-contact", u("photo-1497366216548-37526070297c")),
+  heroConsultation: slot("hero-consultation", u("photo-1556761175-5973dc0f32e7")),
+  ctaBand: slot("cta-band", u("photo-1600596542815-ffad4c1539a9")),
+
+  // Section photos.
+  aboutValuer: slot("about-valuer", u("photo-1573497019940-1c28c88b4f3e")),
+  aboutInterior: slot("about-interior", u("photo-1600210492486-724fe5c67fb0")),
+  whyChooseUs: slot("why-choose-us", u("photo-1521791136064-7986c2920216")),
+  aboutTeam: slot("about-team", u("photo-1600880292203-757bb62b4baf")),
+  aboutOffice: slot("about-office", u("photo-1497366811353-6870744d04b2")),
+
+  // "Browse by property type" tiles: portrait.
+  typeApartment: slot("type-apartment", u("photo-1545324418-cc1a3fa10c00")),
+  typeDuplex: slot("type-duplex", u("photo-1564013799919-ab600027ffc6")),
+  typeDetached: slot("type-detached", u("photo-1600585154340-be6161a56a0c")),
+  typeTerrace: slot("type-terrace", u("photo-1580587771525-78b9dba3b914")),
+  typeBungalow: slot("type-bungalow", u("photo-1570129477492-45c003edd2be")),
+  typeLand: slot("type-land", u("photo-1500382017468-9049fed747ef")),
+  typeOffice: slot("type-office", u("photo-1486406146926-c627a92ad1ab")),
+  typeWarehouse: slot("type-warehouse", u("photo-1497366811353-6870744d04b2")),
+} as const;
+
+export const serviceImages = {
+  valuations: slot("service-valuations", u("photo-1573497019940-1c28c88b4f3e")),
+  "property-facility-management": slot("service-facility-management", u("photo-1497366216548-37526070297c")),
+  "estate-agency": slot("service-estate-agency", u("photo-1521791136064-7986c2920216")),
+  "feasibility-viability-appraisal": slot("service-feasibility", u("photo-1600880292203-757bb62b4baf")),
+  "land-administration": slot("service-land-administration", u("photo-1500382017468-9049fed747ef")),
+  auctioneering: slot("service-auctioneering", u("photo-1556761175-5973dc0f32e7")),
+} as const;
+
+/** Photo pools for the sample listings in src/lib/seed. */
 export const img = {
-  hero: [
-    u("photo-1613490493576-7fde63acd811"),
-    u("photo-1600596542815-ffad4c1539a9"),
-    u("photo-1600585154340-be6161a56a0c"),
-  ],
   houses: [
     u("photo-1600585154340-be6161a56a0c"),
     u("photo-1600596542815-ffad4c1539a9"),
@@ -38,26 +78,5 @@ export const img = {
     u("photo-1497366216548-37526070297c"),
     u("photo-1497366811353-6870744d04b2"),
   ],
-  land: [
-    u("photo-1500382017468-9049fed747ef"),
-    u("photo-1541888946425-d81bb19240f5"),
-  ],
-  people: [
-    u("photo-1573497019940-1c28c88b4f3e"),
-    u("photo-1560250097-0b93528c311a"),
-    u("photo-1600880292203-757bb62b4baf"),
-    u("photo-1556761175-5973dc0f32e7"),
-    u("photo-1521791136064-7986c2920216"),
-    u("photo-1573164713988-8665fc963095"),
-  ],
-  city: [u("photo-1618828665011-0abd973f7bb8")],
-} as const;
-
-export const serviceImages = {
-  valuations: img.people[0],
-  "property-facility-management": img.commercial[1],
-  "estate-agency": img.people[4],
-  "feasibility-viability-appraisal": img.people[2],
-  "land-administration": img.land[0],
-  auctioneering: img.people[3],
+  land: [u("photo-1500382017468-9049fed747ef"), u("photo-1541888946425-d81bb19240f5")],
 } as const;
