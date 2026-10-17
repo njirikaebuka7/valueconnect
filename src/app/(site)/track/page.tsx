@@ -1,0 +1,38 @@
+import type { Metadata } from "next";
+import { PageHero } from "@/components/layout/page-hero";
+import { Accent } from "@/components/ui/section-heading";
+import { TrackForm } from "@/components/valuation/track-form";
+import { img } from "@/lib/images";
+
+export const metadata: Metadata = {
+  title: "Track your valuation",
+  description: "Follow the progress of your Valueconnect valuation request with your reference number and email.",
+  alternates: { canonical: "/track" },
+};
+
+type Props = { searchParams: Promise<Record<string, string | string[] | undefined>> };
+
+export default async function TrackPage({ searchParams }: Props) {
+  const sp = await searchParams;
+  const ref = typeof sp.ref === "string" ? sp.ref.slice(0, 40) : "";
+
+  return (
+    <>
+      <PageHero
+        eyebrow="Request tracker"
+        image={img.hero[2]}
+        title={
+          <>
+            Track your <Accent className="text-aqua-300">valuation</Accent>
+          </>
+        }
+        description="Enter the reference from your confirmation and the email you used. You'll see your quote, inspection date and every update from our valuers."
+      />
+      <section className="relative z-10 -mt-10 pb-24 sm:-mt-14 lg:pb-32">
+        <div className="container-x">
+          <TrackForm initialReference={ref} />
+        </div>
+      </section>
+    </>
+  );
+}

@@ -145,7 +145,7 @@ export function Footer() {
         </div>
 
         <div className="border-t border-white/10">
-          <div className="container-x flex flex-col gap-3 py-6 pb-28 text-xs sm:flex-row sm:items-center sm:justify-between lg:pb-6">
+          <div className="container-x flex flex-col gap-3 py-6 pb-44 text-xs sm:flex-row sm:items-center sm:justify-between lg:pb-6">
             <p>© {new Date().getFullYear()} Valueconnect Consulting. All rights reserved.</p>
             <div className="flex gap-5">
               <Link href="/privacy" className="hover:text-aqua-300">

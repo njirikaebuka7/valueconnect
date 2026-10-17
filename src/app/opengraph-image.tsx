@@ -30,11 +30,11 @@ export default async function OpengraphImage() {
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={`data:image/png;base64,${mark}`} width={120} height={100} alt="" />
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ fontFamily: "Oswald", fontSize: 44, letterSpacing: 1 }}>
-              VALUECONNECT <span style={{ color: "#3dd6fb", marginLeft: 12 }}>CONSULTING</span>
+            <div style={{ display: "flex", fontFamily: "Oswald", fontSize: 44, letterSpacing: 1 }}>
+              <span>VALUECONNECT</span>
+              <span style={{ color: "#3dd6fb", marginLeft: 12 }}>CONSULTING</span>
             </div>
             <div style={{ fontSize: 22, color: "#9eebfd", marginTop: 4 }}>Estate Surveyors &amp; Valuers</div>
           </div>

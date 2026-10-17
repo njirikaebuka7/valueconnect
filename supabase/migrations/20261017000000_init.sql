@@ -394,6 +394,11 @@ insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_typ
 values ('property-images', 'property-images', true, 8388608, array['image/jpeg', 'image/png', 'image/webp', 'image/avif'])
 on conflict (id) do nothing;
 
+-- Updates and deletes go through a WHERE on existing rows, which needs SELECT too.
+drop policy if exists "admins read property images" on storage.objects;
+create policy "admins read property images" on storage.objects
+  for select to authenticated using (bucket_id = 'property-images' and public.is_admin());
+
 drop policy if exists "admins upload property images" on storage.objects;
 create policy "admins upload property images" on storage.objects
   for insert to authenticated with check (bucket_id = 'property-images' and public.is_admin());

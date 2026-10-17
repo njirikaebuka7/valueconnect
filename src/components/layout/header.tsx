@@ -15,7 +15,9 @@ import { WhatsAppIcon } from "@/components/ui/social-icons";
 export function Header() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
-  const [open, setOpen] = useState(false);
+  // The menu belongs to the page it was opened on, so navigating closes it.
+  const [openedOn, setOpenedOn] = useState<string | null>(null);
+  const open = openedOn === pathname;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -23,8 +25,6 @@ export function Header() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  useEffect(() => setOpen(false), [pathname]);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -107,7 +107,7 @@ export function Header() {
             </a>
             <button
               type="button"
-              onClick={() => setOpen(true)}
+              onClick={() => setOpenedOn(pathname)}
               aria-label="Open menu"
               aria-expanded={open}
               className={cn(buttonClass(overlay ? "glass" : "outline", "icon"), "rounded-full lg:hidden")}
@@ -118,7 +118,7 @@ export function Header() {
         </div>
       </header>
 
-      {open && <MobileMenu pathname={pathname} onClose={() => setOpen(false)} />}
+      {open && <MobileMenu pathname={pathname} onClose={() => setOpenedOn(null)} />}
     </>
   );
 }
