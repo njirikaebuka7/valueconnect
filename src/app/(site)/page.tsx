@@ -25,7 +25,8 @@ export const metadata: Metadata = {
 export default async function HomePage() {
   const properties = await getPublishedProperties();
   const featured = properties.filter((p) => p.featured);
-  const showcase = (featured.length >= 3 ? featured : properties).slice(0, 6);
+  // Nine cards (three rows on desktop): featured first, topped up with the newest.
+  const showcase = [...featured, ...properties.filter((p) => !p.featured)].slice(0, 9);
 
   return (
     <>

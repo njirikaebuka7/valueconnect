@@ -29,7 +29,8 @@ export function FeaturedProperties({ properties }: { properties: Property[] }) {
               key={p.id}
               data-reveal
               style={{ "--reveal-delay": `${(i % 3) * 100}ms` } as React.CSSProperties}
-              className="w-[82%] shrink-0 snap-start sm:w-auto"
+              // An odd ninth card would sit alone in the two-column tablet grid.
+              className={`w-[82%] shrink-0 snap-start sm:w-auto ${i === 8 ? "sm:max-lg:hidden" : ""}`}
             >
               <PropertyCard property={p} className="h-full" />
             </div>

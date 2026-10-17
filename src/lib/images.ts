@@ -6,7 +6,35 @@
  * until then it falls back to a free stock photo. Property photos uploaded
  * through the admin live in Supabase Storage instead.
  */
-const LOCAL = new Set<string>([]);
+const LOCAL = new Set<string>([
+  "about-interior",
+  "about-office",
+  "about-team",
+  "about-valuer",
+  "cta-band",
+  "hero-about",
+  "hero-consultation",
+  "hero-contact",
+  "hero-home",
+  "hero-services",
+  "hero-track",
+  "hero-valuation",
+  "service-auctioneering",
+  "service-estate-agency",
+  "service-facility-management",
+  "service-feasibility",
+  "service-land-administration",
+  "service-valuations",
+  "type-apartment",
+  "type-bungalow",
+  "type-detached",
+  "type-duplex",
+  "type-land",
+  "type-office",
+  "type-terrace",
+  "type-warehouse",
+  "why-choose-us",
+]);
 
 const u = (id: string) => `https://images.unsplash.com/${id}`;
 const px = (id: number) => `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg`;
@@ -50,22 +78,11 @@ export const serviceImages = {
   auctioneering: slot("service-auctioneering", px(5668484)),
 } as const;
 
-/** Photo pools for the sample listings in src/lib/seed. */
+/** Local photos reused as covers for the sample listings in src/lib/seed. */
+export const local = (name: string) => `/images/${name}.jpg`;
+
+/** Stock photo pools for the sample listings' extra gallery shots. */
 export const img = {
-  houses: [
-    u("photo-1600585154340-be6161a56a0c"),
-    u("photo-1600596542815-ffad4c1539a9"),
-    u("photo-1613490493576-7fde63acd811"),
-    u("photo-1564013799919-ab600027ffc6"),
-    u("photo-1568605114967-8130f3a36994"),
-    u("photo-1580587771525-78b9dba3b914"),
-    u("photo-1512917774080-9991f1c4c750"),
-    u("photo-1570129477492-45c003edd2be"),
-    u("photo-1600607687939-ce8a6c25118c"),
-    u("photo-1605276374104-dee2a0ed3cd6"),
-    u("photo-1583608205776-bfd35f0d9f83"),
-    u("photo-1545324418-cc1a3fa10c00"),
-  ],
   interiors: [
     u("photo-1600210492486-724fe5c67fb0"),
     u("photo-1600566753190-17f0baa2a6c3"),
@@ -79,5 +96,4 @@ export const img = {
     u("photo-1497366216548-37526070297c"),
     u("photo-1497366811353-6870744d04b2"),
   ],
-  land: [u("photo-1500382017468-9049fed747ef"), u("photo-1541888946425-d81bb19240f5")],
 } as const;

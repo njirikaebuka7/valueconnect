@@ -9,17 +9,25 @@ import { HeroSearch } from "./hero-search";
 export function Hero() {
   return (
     <section className="relative isolate overflow-hidden bg-navy-950 text-white">
-      <Photo src={photos.heroHome} alt="" fill preload plainFallback sizes="100vw" className="-z-20 object-cover opacity-70" />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-navy-950/85 via-navy-950/55 to-navy-950" />
+      <Photo
+        src={photos.heroHome}
+        alt="Aerial view of a residential estate in Lagos"
+        fill
+        preload
+        plainFallback
+        sizes="100vw"
+        className="animate-hero-zoom -z-20 object-cover"
+      />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-navy-950/80 via-navy-950/45 to-navy-950/95" />
+      <div aria-hidden className="absolute inset-0 -z-10 bg-[radial-gradient(60%_50%_at_50%_45%,rgb(4_18_58/0.55),transparent_75%)]" />
       <div
         aria-hidden
         className="absolute inset-0 -z-10"
         style={{
           background:
-            "radial-gradient(45% 55% at 80% 15%, rgb(3 203 250 / 0.28), transparent 65%), radial-gradient(50% 60% at 5% 85%, rgb(18 63 179 / 0.55), transparent 60%)",
+            "radial-gradient(45% 55% at 85% 10%, rgb(3 203 250 / 0.22), transparent 65%), radial-gradient(50% 60% at 0% 90%, rgb(18 63 179 / 0.45), transparent 60%)",
         }}
       />
-      <div aria-hidden className="bg-grid-faint absolute inset-0 -z-10 [mask-image:linear-gradient(to_bottom,black,transparent_70%)]" />
 
       <div className="container-x relative flex min-h-[100svh] flex-col items-center justify-center pt-28 pb-12 text-center sm:pt-32 lg:min-h-[94vh] lg:pb-16">
         <p className="glass animate-fade-up inline-flex items-center gap-2 rounded-full py-1.5 pr-4 pl-1.5 text-[0.7rem] font-bold tracking-[0.14em] text-aqua-100 uppercase sm:text-xs">

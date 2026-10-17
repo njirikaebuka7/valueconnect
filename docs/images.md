@@ -1,5 +1,7 @@
 # Image brief
 
+> **Status:** all 27 images below are installed in `public/images` (supplied by the owner, October 2026). Replace a file with the same name to change a photo. Sample-listing photos have their own brief in `docs/property-images.md`.
+
 Every photo slot on the website, what it should show, and the size to supply.
 
 ## Rules for every image
@@ -18,11 +20,11 @@ Size: **2400 × 1350 px** (landscape, 16:9).
 
 | File name | Appears on | What it should show |
 | --- | --- | --- |
-| `hero-home.jpg` | Home page, top | **The signature shot.** Lagos skyline at dusk or night: the Lekki–Ikoyi Link Bridge, the Victoria Island skyline, or Eko Atlantic. |
+| `hero-home.jpg` | Home page, top | **The signature shot.** Aerial view over a Lagos residential estate's rooftops (owner's choice). |
 | `hero-about.jpg` | About page | Victoria Island / Lagos business district office towers (where the office is). |
 | `hero-services.jpg` | Services page | Aerial view of Lagos or a development / construction site. |
 | `hero-valuation.jpg` | Request a Valuation page | A luxury modern home exterior (Lekki or Ikoyi style), ideally at dusk with lights on. |
-| `hero-track.jpg` | Track My Request page | Aerial view of a Lagos residential estate or rooftops. |
+| `hero-track.jpg` | Track My Request page | Lagos skyline with the Lekki–Ikoyi Link Bridge at dusk. |
 | `hero-contact.jpg` | Contact page | Victoria Island street or office frontage (Musa Yar'adua / Kofo Abayomi area is perfect). |
 | `hero-consultation.jpg` | Book a Consultation page | Nigerian professionals in a meeting in a modern office. |
 | `cta-band.jpg` | "Need a valuation your bank will rely on?" band (Home, About, Services) | Lagos lagoon, Third Mainland Bridge or waterfront at night. |

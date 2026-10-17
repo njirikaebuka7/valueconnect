@@ -45,7 +45,7 @@ export function PageHero({
             {eyebrow}
           </p>
         )}
-        <h1 className="animate-fade-up mt-5 max-w-4xl text-[2.2rem] leading-[1.08] font-extrabold text-white [animation-delay:80ms] sm:text-5xl lg:text-6xl">
+        <h1 className="animate-fade-up mt-5 max-w-4xl text-[2.2rem] leading-[1.08] font-extrabold text-balance text-white [animation-delay:80ms] sm:text-5xl lg:text-6xl">
           {title}
         </h1>
         {description && (
