@@ -1,7 +1,8 @@
-.next
-node_modules
-.env*
-!.env.example
-docs
-scripts
-supabase
+# Leading slashes anchor to the repo root, so src/lib/supabase is still uploaded.
+/.next
+/node_modules
+/.env*
+!/.env.example
+/docs
+/scripts
+/supabase

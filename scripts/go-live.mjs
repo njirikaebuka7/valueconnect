@@ -103,7 +103,8 @@ const deploy = spawnSync("npx", ["--yes", "vercel@latest", "deploy", "--prod", "
 });
 process.stderr.write(deploy.stderr ?? "");
 if (deploy.status !== 0) throw new Error("Vercel deploy failed (see the output above).");
-const deploymentUrl = (deploy.stdout ?? "").trim().split("\n").pop();
+const urls = `${deploy.stdout ?? ""}\n${deploy.stderr ?? ""}`.match(/https:\/\/[\w.-]+\.vercel\.app/g) ?? [];
+const deploymentUrl = urls.at(-1) ?? "(see Vercel dashboard)";
 console.log(`  live at ${deploymentUrl}`);
 
 for (const name of config.vercel.domains) {
