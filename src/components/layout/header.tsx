@@ -9,7 +9,7 @@ import { ButtonLink, buttonClass } from "@/components/ui/button";
 import { services } from "@/lib/content";
 import { cn } from "@/lib/format";
 import { mainNav, site, whatsappLink } from "@/lib/site";
-import { hasDarkHero, isActive } from "./routes";
+import { isActive } from "./routes";
 import { WhatsAppIcon } from "@/components/ui/social-icons";
 
 export function Header() {
@@ -33,27 +33,22 @@ export function Header() {
     };
   }, [open]);
 
-  const overlay = hasDarkHero(pathname) && !scrolled;
-
   return (
     <>
       <header
         className={cn(
-          "header-in fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,box-shadow] duration-300",
-          overlay
-            ? "bg-gradient-to-b from-navy-950/60 to-transparent"
-            : "border-b border-line/70 bg-white/95 shadow-[0_8px_30px_-18px_rgb(4_18_58/0.35)] backdrop-blur-xl",
+          "header-in fixed inset-x-0 top-0 z-50 border-b bg-white transition-[border-color,box-shadow] duration-300",
+          scrolled ? "border-line/80 shadow-[0_10px_30px_-18px_rgb(4_18_58/0.4)]" : "border-transparent",
         )}
       >
         <div className="container-x flex h-16 items-center justify-between gap-3 lg:h-20">
-          <Logo tone={overlay ? "light" : "dark"} compact className="sm:hidden" />
-          <Logo tone={overlay ? "light" : "dark"} className="max-sm:hidden" />
+          <Logo compact className="sm:hidden" />
+          <Logo className="max-sm:hidden" />
 
           <nav
             aria-label="Main"
             className={cn(
-              "hidden items-center gap-1 rounded-full p-1 lg:flex",
-              overlay ? "glass" : "bg-surface ring-1 ring-line",
+              "hidden items-center gap-1 rounded-full bg-surface p-1 ring-1 ring-line lg:flex",
             )}
           >
             {mainNav.map((item) => {
@@ -64,13 +59,7 @@ export function Header() {
                   href={item.href}
                   className={cn(
                     "rounded-full px-4 py-2 text-sm font-semibold transition",
-                    overlay
-                      ? active
-                        ? "bg-white text-navy-900"
-                        : "text-white/85 hover:bg-white/15 hover:text-white"
-                      : active
-                        ? "bg-navy-700 text-white shadow-sm"
-                        : "text-body hover:bg-white hover:text-navy-800",
+                    active ? "bg-navy-700 text-white shadow-sm" : "text-body hover:bg-white hover:text-navy-800",
                   )}
                 >
                   {item.label}
@@ -83,8 +72,7 @@ export function Header() {
             <a
               href={`tel:${site.phones[0].tel}`}
               className={cn(
-                "hidden items-center gap-2 rounded-full px-3.5 py-2 text-sm font-semibold transition xl:inline-flex",
-                overlay ? "glass text-white hover:bg-white/20" : "bg-surface text-navy-800 ring-1 ring-line hover:bg-navy-50",
+                "hidden items-center gap-2 rounded-full bg-surface px-3.5 py-2 text-sm font-semibold text-navy-800 ring-1 ring-line transition hover:bg-navy-50 xl:inline-flex",
               )}
             >
               <span className="grid h-6 w-6 place-items-center rounded-full bg-aqua-500 text-navy-950">
@@ -98,10 +86,7 @@ export function Header() {
             <a
               href={`tel:${site.phones[0].tel}`}
               aria-label="Call us"
-              className={cn(
-                buttonClass(overlay ? "glass" : "outline", "icon"),
-                "rounded-full sm:hidden",
-              )}
+              className={cn(buttonClass("outline", "icon"), "rounded-full sm:hidden")}
             >
               <Phone className="h-[1.1rem] w-[1.1rem]" />
             </a>
@@ -110,7 +95,7 @@ export function Header() {
               onClick={() => setOpenedOn(pathname)}
               aria-label="Open menu"
               aria-expanded={open}
-              className={cn(buttonClass(overlay ? "glass" : "outline", "icon"), "rounded-full lg:hidden")}
+              className={cn(buttonClass("outline", "icon"), "rounded-full lg:hidden")}
             >
               <Menu className="h-5 w-5" />
             </button>
