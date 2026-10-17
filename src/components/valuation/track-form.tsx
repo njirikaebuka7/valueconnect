@@ -13,13 +13,14 @@ import {
 } from "lucide-react";
 import { useActionState } from "react";
 import { trackValuationRequest } from "@/app/actions/public";
+import { useContact } from "@/components/layout/contact-context";
 import { Badge, type Tone } from "@/components/ui/badge";
 import { Button, ButtonLink } from "@/components/ui/button";
 import { Field, FormAlert, Input } from "@/components/ui/field";
 import { WhatsAppIcon } from "@/components/ui/social-icons";
 import { cn, formatDate, formatDateTime, formatNaira } from "@/lib/format";
 import { valuationFlow, valuationPurposeLabel, valuationStatusMeta } from "@/lib/options";
-import { site, whatsappLink } from "@/lib/site";
+import { whatsappLink } from "@/lib/site";
 import type { TrackedRequest } from "@/lib/types";
 
 export function TrackForm({ initialReference }: { initialReference: string }) {
@@ -111,6 +112,7 @@ function TrackHelp() {
 }
 
 function TrackResult({ r }: { r: TrackedRequest }) {
+  const contact = useContact();
   const meta = valuationStatusMeta[r.status];
   const cancelled = r.status === "cancelled";
   const current = valuationFlow.indexOf(r.status);
@@ -244,7 +246,7 @@ function TrackResult({ r }: { r: TrackedRequest }) {
 
       <div className="grid gap-2 sm:grid-cols-2">
         <a
-          href={whatsappLink(`Hello Valueconnect, I'm following up on valuation request ${r.reference}.`)}
+          href={whatsappLink(contact.whatsapp, `Hello Valueconnect, I'm following up on valuation request ${r.reference}.`)}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex h-12 items-center justify-center gap-2 rounded-2xl bg-aqua-500 text-sm font-semibold text-navy-950 transition hover:bg-aqua-400"
@@ -252,10 +254,10 @@ function TrackResult({ r }: { r: TrackedRequest }) {
           <WhatsAppIcon className="h-4 w-4" /> WhatsApp us
         </a>
         <a
-          href={`tel:${site.phones[0].tel}`}
+          href={`tel:${contact.phones[0].tel}`}
           className="inline-flex h-12 items-center justify-center gap-2 rounded-2xl bg-white text-sm font-semibold text-navy-800 ring-1 ring-line transition hover:bg-navy-50"
         >
-          <Phone className="h-4 w-4" /> Call {site.phones[0].display}
+          <Phone className="h-4 w-4" /> Call {contact.phones[0].display}
         </a>
       </div>
     </div>

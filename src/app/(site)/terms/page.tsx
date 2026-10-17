@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { LegalPage } from "@/components/home/legal-page";
-import { site } from "@/lib/site";
+import { getContact } from "@/lib/settings";
 
 export const metadata: Metadata = {
   title: "Terms of use",
@@ -9,7 +9,8 @@ export const metadata: Metadata = {
   alternates: { canonical: "/terms" },
 };
 
-export default function TermsPage() {
+export default async function TermsPage() {
+  const contact = await getContact();
   return (
     <LegalPage title="Terms of use" updated="October 2026">
       <p>
@@ -34,7 +35,7 @@ export default function TermsPage() {
       <p>
         We will never ask you to pay fees into a personal bank account. Payments are made only to Valueconnect
         Consulting&apos;s official company account, as stated on our engagement letter or invoice. If in doubt, call us
-        on {site.phones[0].display} before you pay.
+        on {contact.phones[0].display} before you pay.
       </p>
 
       <h2>Requests and quotes</h2>

@@ -3,10 +3,11 @@
 import { MessageSquareText, Phone, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { EnquiryForm } from "@/components/forms/enquiry-form";
+import { useContact } from "@/components/layout/contact-context";
 import { WhatsAppIcon } from "@/components/ui/social-icons";
 import { buttonClass } from "@/components/ui/button";
 import { cn } from "@/lib/format";
-import { site, whatsappLink } from "@/lib/site";
+import { whatsappLink } from "@/lib/site";
 
 /** Sticky Call · WhatsApp · Enquire bar that sits above the mobile tab bar. */
 export function PropertyActionBar({
@@ -20,6 +21,7 @@ export function PropertyActionBar({
   price: string;
   url: string;
 }) {
+  const contact = useContact();
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -41,14 +43,14 @@ export function PropertyActionBar({
             <p className="truncate text-base font-extrabold text-navy-700">{price}</p>
           </div>
           <a
-            href={`tel:${site.phones[0].tel}`}
+            href={`tel:${contact.phones[0].tel}`}
             aria-label="Call Valueconnect"
             className={cn(buttonClass("outline", "icon"), "h-11 w-11 rounded-full")}
           >
             <Phone className="h-[1.1rem] w-[1.1rem]" />
           </a>
           <a
-            href={whatsappLink(`Hello Valueconnect, I'm interested in "${propertyTitle}" ${url}`)}
+            href={whatsappLink(contact.whatsapp, `Hello Valueconnect, I'm interested in "${propertyTitle}" ${url}`)}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Chat on WhatsApp"

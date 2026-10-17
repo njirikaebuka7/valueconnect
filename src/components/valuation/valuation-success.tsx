@@ -2,6 +2,7 @@
 
 import { Check, Copy, House, ScanSearch } from "lucide-react";
 import { useState } from "react";
+import { useContact } from "@/components/layout/contact-context";
 import { ButtonLink, buttonClass } from "@/components/ui/button";
 import { WhatsAppIcon } from "@/components/ui/social-icons";
 import { cn } from "@/lib/format";
@@ -14,6 +15,7 @@ const nextSteps = [
 ];
 
 export function ValuationSuccess({ reference, preview }: { reference: string; preview: boolean }) {
+  const contact = useContact();
   const [copied, setCopied] = useState(false);
 
   const copy = async () => {
@@ -86,7 +88,7 @@ export function ValuationSuccess({ reference, preview }: { reference: string; pr
           <ScanSearch className="h-4 w-4" /> Track this request
         </ButtonLink>
         <a
-          href={whatsappLink(`Hello Valueconnect, here are the documents for valuation request ${reference}.`)}
+          href={whatsappLink(contact.whatsapp, `Hello Valueconnect, here are the documents for valuation request ${reference}.`)}
           target="_blank"
           rel="noopener noreferrer"
           className={buttonClass("accent", "lg")}

@@ -1,13 +1,14 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, updateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { requireAdmin } from "@/lib/auth";
 import { detailRows, emailEnabled, emailLayout, esc, sendEmail } from "@/lib/email";
 import { formatDateTime, formatNaira, slugify } from "@/lib/format";
 import { valuationPurposeLabel, valuationStatusMeta } from "@/lib/options";
-import { site } from "@/lib/site";
+import { getContact, SETTINGS_TAG } from "@/lib/settings";
+import { site, socialNetworks, type SocialKey } from "@/lib/site";
 import { createClient } from "@/lib/supabase/server";
 import type {
   ActionResult,
@@ -343,9 +344,9 @@ export async function respondToValuation(
     const trackUrl = `${site.url}/track?ref=${encodeURIComponent(reference)}`;
     const res = await sendEmail({
       to: String(current.email),
-      replyTo: site.email,
+      replyTo: (await getContact()).email,
       subject: `Update on your valuation request ${reference}`,
-      html: emailLayout(
+      html: await emailLayout(
         valuationStatusMeta[v.status].client,
         `<p>Dear ${esc(String(current.full_name).split(" ")[0])},</p>` +
           (hasMessage ? `<p style="white-space:pre-wrap">${esc(v.message)}</p>` : "") +
@@ -463,4 +464,52 @@ export async function deleteSubscriber(email: string) {
   const { error } = await supabase.from("subscribers").delete().eq("email", email);
   if (error) throw new Error(error.message);
   revalidatePath("/admin/subscribers");
+}
+
+// ---------------------------------------------------------------------------
+// Site settings (contact details and social links)
+// ---------------------------------------------------------------------------
+
+/** "instagram.com/x" → "https://instagram.com/x"; "@x" → the network's profile URL. */
+function socialUrl(base: string) {
+  return z
+    .string()
+    .trim()
+    .max(300)
+    .transform((v) => (!v ? "" : v.startsWith("@") ? `${base}${v.slice(1)}` : /^https?:\/\//i.test(v) ? v : `https://${v}`))
+    .refine((v) => !v || z.url({ protocol: /^https?$/ }).safeParse(v).success, "Enter a full link, e.g. https://…");
+}
+
+const sitePhone = z
+  .string()
+  .trim()
+  .max(30, "Enter a valid phone number")
+  .regex(/^$|^[+\d][\d\s()-]{6,}$/, "Enter a valid phone number");
+
+const settingsSchema = z.object({
+  address: z.string().trim().min(10, "Enter the full office address").max(300),
+  phone_1: sitePhone.refine(Boolean, "Enter the main phone number"),
+  phone_2: sitePhone,
+  whatsapp: sitePhone,
+  email: z.string().trim().toLowerCase().pipe(z.email("Enter a valid email address")),
+  ...(Object.fromEntries(socialNetworks.map((n) => [n.key, socialUrl(n.base)])) as Record<
+    SocialKey,
+    ReturnType<typeof socialUrl>
+  >),
+});
+
+export async function saveSiteSettings(_prev: ActionResult | null, formData: FormData): Promise<ActionResult> {
+  await requireAdmin();
+  const parsed = settingsSchema.safeParse(entries(formData));
+  if (!parsed.success) {
+    return { ok: false, error: "Please check the highlighted fields.", fieldErrors: fieldErrors(parsed.error) };
+  }
+  const row = Object.fromEntries(Object.entries(parsed.data).map(([k, v]) => [k, v || null]));
+  const supabase = await createClient();
+  const { error } = await supabase.from("site_settings").upsert({ id: 1, ...row });
+  if (error) return { ok: false, error: `Couldn't save: ${error.message}` };
+  // Contact details appear on every page.
+  updateTag(SETTINGS_TAG);
+  revalidatePath("/", "layout");
+  return { ok: true, message: "Saved. The website now shows these details." };
 }

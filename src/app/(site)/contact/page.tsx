@@ -6,48 +6,51 @@ import { FaqSection } from "@/components/home/faq-section";
 import { PageHero } from "@/components/layout/page-hero";
 import { WhatsAppIcon } from "@/components/ui/social-icons";
 import { photos } from "@/lib/images";
-import { site, whatsappLink } from "@/lib/site";
+import { getContact } from "@/lib/settings";
+import { whatsappLink, type SiteContact } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Contact us",
-  description: `Visit, call or message Valueconnect Consulting at ${site.address.full}`,
+  description: "Visit, call, email or WhatsApp Valueconnect Consulting, Estate Surveyors & Valuers in Victoria Island, Lagos.",
   alternates: { canonical: "/contact" },
 };
 
-const cards = [
+const contactCards = (contact: SiteContact) => [
   {
     icon: MapPin,
     label: "Visit our office",
-    value: site.address.full,
-    href: site.mapLink,
+    value: contact.address,
+    href: contact.mapLink,
     cta: "Get directions",
     external: true,
   },
   {
     icon: Phone,
     label: "Call us",
-    value: site.phones.map((p) => p.display).join(" · "),
-    href: `tel:${site.phones[0].tel}`,
+    value: contact.phones.map((p) => p.display).join(" · "),
+    href: `tel:${contact.phones[0].tel}`,
     cta: "Call now",
   },
   {
     icon: Mail,
     label: "Email us",
-    value: site.email,
-    href: `mailto:${site.email}`,
+    value: contact.email,
+    href: `mailto:${contact.email}`,
     cta: "Send an email",
   },
   {
     icon: WhatsAppIcon,
     label: "WhatsApp",
     value: "Quick questions, documents and updates",
-    href: whatsappLink("Hello Valueconnect, I have an enquiry."),
+    href: whatsappLink(contact.whatsapp, "Hello Valueconnect, I have an enquiry."),
     cta: "Start a chat",
     external: true,
   },
-] as const;
+];
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const contact = await getContact();
+  const cards = contactCards(contact);
   return (
     <>
       <PageHero
@@ -113,7 +116,7 @@ export default function ContactPage() {
           >
             <iframe
               title="Map showing Valueconnect Consulting, Victoria Island, Lagos"
-              src={site.mapEmbed}
+              src={contact.mapEmbed}
               className="absolute inset-0 h-full w-full border-0"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
@@ -124,7 +127,7 @@ export default function ContactPage() {
               </span>
               <div>
                 <p className="text-sm font-bold text-ink">Valueconnect Consulting</p>
-                <p className="text-xs text-body">{site.address.full}</p>
+                <p className="text-xs text-body">{contact.address}</p>
               </div>
             </div>
           </div>

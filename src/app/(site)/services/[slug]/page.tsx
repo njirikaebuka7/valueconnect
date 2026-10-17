@@ -18,7 +18,8 @@ import {
   valuationSteps,
 } from "@/lib/content";
 import { serviceImages } from "@/lib/images";
-import { site, whatsappLink } from "@/lib/site";
+import { getContact } from "@/lib/settings";
+import { whatsappLink } from "@/lib/site";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -42,6 +43,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ServicePage({ params }: Props) {
   const service = getService((await params).slug);
   if (!service) notFound();
+  const contact = await getContact();
   const isValuation = service.slug === "valuations";
   const others = services.filter((s) => s.slug !== service.slug);
 
@@ -58,7 +60,7 @@ export default async function ServicePage({ params }: Props) {
             {isValuation ? "Request a valuation" : "Book a consultation"} <ArrowRight className="h-4 w-4" />
           </ButtonLink>
           <a
-            href={whatsappLink(`Hello Valueconnect, I'd like to ask about ${service.title}.`)}
+            href={whatsappLink(contact.whatsapp, `Hello Valueconnect, I'd like to ask about ${service.title}.`)}
             target="_blank"
             rel="noopener noreferrer"
             className="glass inline-flex h-13 items-center justify-center gap-2 rounded-2xl px-6 text-[0.95rem] font-semibold text-white hover:bg-white/20"
@@ -203,7 +205,7 @@ export default async function ServicePage({ params }: Props) {
                     <CalendarCheck className="h-4 w-4" /> Book a consultation
                   </ButtonLink>
                   <a
-                    href={whatsappLink(`Hello Valueconnect, I'd like to ask about ${service.title}.`)}
+                    href={whatsappLink(contact.whatsapp, `Hello Valueconnect, I'd like to ask about ${service.title}.`)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="glass inline-flex h-13 w-full items-center justify-center gap-2 rounded-2xl text-[0.95rem] font-semibold text-white hover:bg-white/20"
@@ -214,7 +216,7 @@ export default async function ServicePage({ params }: Props) {
               </div>
               <div className="rounded-3xl bg-white p-5 shadow-card ring-1 ring-line/80">
                 <p className="text-sm font-bold text-ink">Prefer to call?</p>
-                {site.phones.map((p) => (
+                {contact.phones.map((p) => (
                   <a
                     key={p.tel}
                     href={`tel:${p.tel}`}

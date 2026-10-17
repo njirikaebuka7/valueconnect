@@ -8,6 +8,7 @@ import { requiredDocuments, valuationSteps } from "@/lib/content";
 import { getPropertyBySlug } from "@/lib/data/properties";
 import { photos } from "@/lib/images";
 import { nigerianStates, valuationAssetTypes, valuationPurposes } from "@/lib/options";
+import { getContact } from "@/lib/settings";
 import { site, whatsappLink } from "@/lib/site";
 import type { PropertyType } from "@/lib/types";
 
@@ -55,7 +56,7 @@ function tomorrow() {
 }
 
 export default async function ValuationPage({ searchParams }: Props) {
-  const sp = await searchParams;
+  const [sp, contact] = await Promise.all([searchParams, getContact()]);
   const get = (k: string) => (typeof sp[k] === "string" ? (sp[k] as string) : "");
 
   const slug = get("property");
@@ -152,13 +153,13 @@ export default async function ValuationPage({ searchParams }: Props) {
                 </p>
                 <div className="mt-5 grid grid-cols-2 gap-2">
                   <a
-                    href={`tel:${site.phones[0].tel}`}
+                    href={`tel:${contact.phones[0].tel}`}
                     className="glass inline-flex h-11 items-center justify-center gap-2 rounded-xl text-sm font-semibold text-white hover:bg-white/20"
                   >
                     <Phone className="h-4 w-4" /> Call
                   </a>
                   <a
-                    href={whatsappLink("Hello Valueconnect, I'd like to request a property valuation.")}
+                    href={whatsappLink(contact.whatsapp, "Hello Valueconnect, I'd like to request a property valuation.")}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-aqua-500 text-sm font-semibold text-navy-950 hover:bg-aqua-400"

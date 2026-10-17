@@ -5,7 +5,8 @@ import { PageHero } from "@/components/layout/page-hero";
 import { WhatsAppIcon } from "@/components/ui/social-icons";
 import { services } from "@/lib/content";
 import { photos } from "@/lib/images";
-import { site, whatsappLink } from "@/lib/site";
+import { getContact } from "@/lib/settings";
+import { whatsappLink } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Book a consultation",
@@ -21,7 +22,7 @@ const expect = [
 ];
 
 export default async function ConsultationPage({ searchParams }: { searchParams: Promise<{ service?: string }> }) {
-  const { service } = await searchParams;
+  const [{ service }, contact] = await Promise.all([searchParams, getContact()]);
   const defaultService = services.find((s) => s.slug === service || s.title === service)?.title;
 
   return (
@@ -72,13 +73,13 @@ export default async function ConsultationPage({ searchParams }: { searchParams:
               <p className="mt-1 text-sm">Call or WhatsApp our team.</p>
               <div className="mt-4 grid gap-2.5 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
                 <a
-                  href={`tel:${site.phones[0].tel}`}
+                  href={`tel:${contact.phones[0].tel}`}
                   className="flex items-center justify-center gap-2 rounded-2xl bg-surface px-4 py-3 text-sm font-semibold text-navy-800 ring-1 ring-line hover:bg-navy-50"
                 >
-                  <Phone className="h-4 w-4 text-aqua-600" /> {site.phones[0].display}
+                  <Phone className="h-4 w-4 text-aqua-600" /> {contact.phones[0].display}
                 </a>
                 <a
-                  href={whatsappLink("Hello Valueconnect, I'd like to book a consultation.")}
+                  href={whatsappLink(contact.whatsapp, "Hello Valueconnect, I'd like to book a consultation.")}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 rounded-2xl bg-navy-700 px-4 py-3 text-sm font-semibold text-white hover:bg-navy-800"

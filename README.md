@@ -3,7 +3,7 @@
 Website and admin platform for Valueconnect Consulting, Estate Surveyors & Valuers (Victoria Island, Lagos).
 
 - **Public site:** home, about, services (one page per service), property listings with filters and saved homes, valuation requests (multi-step), request tracking, consultation booking, contact. Installable as an app on phones (PWA).
-- **Admin (`/admin`):** dashboard, valuation requests (status, fee quote, inspection date, reply to client, internal notes, timeline), property manager with photo uploads, consultations, inbox, newsletter subscribers.
+- **Admin (`/admin`):** dashboard, valuation requests (status, fee quote, inspection date, reply to client, internal notes, timeline), property manager with photo uploads, consultations, inbox, newsletter subscribers, and settings for the address, phones, email, WhatsApp and social links.
 - **Stack:** Next.js 16 (App Router, Server Actions), Tailwind CSS 4, Supabase (Postgres, Auth, Storage), deployed on Vercel. Optional email alerts through Resend.
 
 ## How data flows
@@ -14,6 +14,7 @@ Website and admin platform for Valueconnect Consulting, Estate Surveyors & Value
 | Valuation requests + timeline | `valuation_requests`, `request_events` | Visitors submit via `submit_valuation_request()`; clients read their own via `track_valuation_request(reference, email)`; admins manage |
 | Consultations, messages, subscribers | `consultations`, `messages`, `subscribers` | Visitors submit via RPCs; admins manage |
 | Property photos | Storage bucket `property-images` (public) | Admins upload |
+| Contact details, social links | `site_settings` (one row) | Anyone reads; admins edit under Settings |
 | Admin accounts | Supabase Auth users whose email is in `public.admins` | Owner adds them |
 
 Row level security is on for every table. Public visitors never write to tables directly, only through the security-definer RPCs in `supabase/migrations`.
@@ -61,7 +62,7 @@ src/app/admin/         admin login + panel
 src/app/actions/       Server Actions (public forms, admin)
 src/components/        UI, layout, property, valuation, admin components
 src/lib/content.ts     service copy, FAQs, process steps
-src/lib/site.ts        company details, phone numbers, socials
+src/lib/site.ts        company details; default contact details (live ones are edited in Admin → Settings)
 src/lib/seed/          sample listings
 supabase/migrations/   database schema, RLS and RPCs
 scripts/               Supabase setup and seed generation
@@ -69,8 +70,7 @@ scripts/               Supabase setup and seed generation
 
 ## Things to confirm before launch
 
-- Which phone line is on WhatsApp (`site.whatsapp` in `src/lib/site.ts`).
-- Social media links (`site.socials`). Empty links are hidden.
+- Which phone line is on WhatsApp, and the social media links: Admin → Settings. Empty links are hidden.
 - Replace the sample listings and stock photos with real ones from the admin.
 - Auctioneering: the Lagos State Auction Law requires an auctioneer's licence; confirm before promoting the service.
 - Financial-reporting valuations: confirm FRC registration status before making IFRS claims.

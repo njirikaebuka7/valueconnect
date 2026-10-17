@@ -3,7 +3,7 @@
 Items the owner needs to confirm or supply. Nothing here blocks a preview deploy.
 
 ## Content
-- [ ] WhatsApp number (currently set to 0814 483 3999 in `src/lib/site.ts`)
+- [ ] WhatsApp number and social media links (Admin → Settings; WhatsApp currently 0814 483 3999)
 - [ ] Social media links (Facebook, X, Instagram, LinkedIn) — hidden until set
 - [ ] Real listings and photos (sample Nigerian listings are seeded; delete or edit them in `/admin/properties`)
 - [ ] Team photos / named valuers with ESVARBON registration numbers (strongest trust signal on valuation sites)

@@ -4,9 +4,10 @@ import { ButtonLink } from "@/components/ui/button";
 import { Photo } from "@/components/ui/photo";
 import { WhatsAppIcon } from "@/components/ui/social-icons";
 import { photos } from "@/lib/images";
+import { getContact } from "@/lib/settings";
 import { whatsappLink } from "@/lib/site";
 
-export function CtaBand({
+export async function CtaBand({
   title,
   description,
   image = photos.ctaBand,
@@ -15,6 +16,7 @@ export function CtaBand({
   description?: string;
   image?: string;
 }) {
+  const contact = await getContact();
   return (
     <section className="pt-8 pb-20 sm:pb-24">
       <div className="container-x">
@@ -41,7 +43,7 @@ export function CtaBand({
               Request a valuation <ArrowRight className="h-4 w-4" />
             </ButtonLink>
             <a
-              href={whatsappLink("Hello Valueconnect, I'd like a valuation.")}
+              href={whatsappLink(contact.whatsapp, "Hello Valueconnect, I'd like a valuation.")}
               target="_blank"
               rel="noopener noreferrer"
               className="glass inline-flex h-13 items-center justify-center gap-2 rounded-2xl px-6 text-[0.95rem] font-semibold text-white hover:bg-white/20"

@@ -1,9 +1,10 @@
 import "server-only";
-import { site } from "./site";
+import { getContact } from "./settings";
+import { defaultContact, site } from "./site";
 
 const apiKey = process.env.RESEND_API_KEY;
 const from = process.env.EMAIL_FROM ?? `${site.shortName} <no-reply@valueconnect.com.ng>`;
-export const adminInbox = process.env.ADMIN_NOTIFY_EMAIL ?? site.email;
+export const adminInbox = process.env.ADMIN_NOTIFY_EMAIL ?? defaultContact.email;
 
 export const emailEnabled = Boolean(apiKey);
 
@@ -38,7 +39,8 @@ export async function sendEmail(opts: { to: string | string[]; subject: string; 
   }
 }
 
-export function emailLayout(title: string, body: string) {
+export async function emailLayout(title: string, body: string) {
+  const contact = await getContact();
   return `<!doctype html><html><body style="margin:0;background:#f4f7fe;font-family:Arial,Helvetica,sans-serif;color:#0a1033">
   <table width="100%" cellpadding="0" cellspacing="0" style="padding:32px 12px"><tr><td align="center">
   <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;background:#ffffff;border-radius:16px;overflow:hidden">
@@ -51,7 +53,7 @@ export function emailLayout(title: string, body: string) {
       <div style="font-size:14px;line-height:1.6;color:#4b5677">${body}</div>
     </td></tr>
     <tr><td style="padding:18px 28px;background:#f4f7fe;font-size:12px;color:#8390ae">
-      ${esc(site.address.full)}<br>${site.phones.map((p) => esc(p.display)).join(" · ")} · ${esc(site.email)}
+      ${esc(contact.address)}<br>${contact.phones.map((p) => esc(p.display)).join(" · ")} · ${esc(contact.email)}
     </td></tr>
   </table></td></tr></table></body></html>`;
 }

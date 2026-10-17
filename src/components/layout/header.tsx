@@ -5,15 +5,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Logo } from "@/components/brand/logo";
+import { useContact } from "@/components/layout/contact-context";
 import { ButtonLink, buttonClass } from "@/components/ui/button";
 import { services } from "@/lib/content";
 import { cn } from "@/lib/format";
-import { mainNav, site, whatsappLink } from "@/lib/site";
+import { mainNav, whatsappLink } from "@/lib/site";
 import { isActive } from "./routes";
 import { WhatsAppIcon } from "@/components/ui/social-icons";
 
 export function Header() {
   const pathname = usePathname();
+  const contact = useContact();
   const [scrolled, setScrolled] = useState(false);
   // The menu belongs to the page it was opened on, so navigating closes it.
   const [openedOn, setOpenedOn] = useState<string | null>(null);
@@ -70,7 +72,7 @@ export function Header() {
 
           <div className="flex items-center gap-2">
             <a
-              href={`tel:${site.phones[0].tel}`}
+              href={`tel:${contact.phones[0].tel}`}
               className={cn(
                 "hidden items-center gap-2 rounded-full bg-surface px-3.5 py-2 text-sm font-semibold text-navy-800 ring-1 ring-line transition hover:bg-navy-50 xl:inline-flex",
               )}
@@ -78,13 +80,13 @@ export function Header() {
               <span className="grid h-6 w-6 place-items-center rounded-full bg-aqua-500 text-navy-950">
                 <Phone className="h-3.5 w-3.5" />
               </span>
-              {site.phones[0].display}
+              {contact.phones[0].display}
             </a>
             <ButtonLink href="/valuation" variant="accent" className="max-sm:hidden">
               Request a valuation
             </ButtonLink>
             <a
-              href={`tel:${site.phones[0].tel}`}
+              href={`tel:${contact.phones[0].tel}`}
               aria-label="Call us"
               className={cn(buttonClass("outline", "icon"), "rounded-full sm:hidden")}
             >
@@ -109,6 +111,7 @@ export function Header() {
 }
 
 function MobileMenu({ pathname, onClose }: { pathname: string; onClose: () => void }) {
+  const contact = useContact();
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
     window.addEventListener("keydown", onKey);
@@ -157,10 +160,10 @@ function MobileMenu({ pathname, onClose }: { pathname: string; onClose: () => vo
         </ul>
 
         <div className="mt-6 grid grid-cols-2 gap-2 pb-6">
-          <a href={`tel:${site.phones[0].tel}`} className={buttonClass("white", "lg")}>
+          <a href={`tel:${contact.phones[0].tel}`} className={buttonClass("white", "lg")}>
             <Phone className="h-4 w-4" /> Call us
           </a>
-          <a href={whatsappLink("Hello Valueconnect, I'd like to make an enquiry.")} target="_blank" rel="noopener noreferrer" className={buttonClass("accent", "lg")}>
+          <a href={whatsappLink(contact.whatsapp, "Hello Valueconnect, I'd like to make an enquiry.")} target="_blank" rel="noopener noreferrer" className={buttonClass("accent", "lg")}>
             <WhatsAppIcon className="h-4 w-4" /> WhatsApp
           </a>
         </div>

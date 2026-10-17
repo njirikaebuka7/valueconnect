@@ -4,6 +4,7 @@ import { after } from "next/server";
 import { z } from "zod";
 import { adminInbox, detailRows, emailLayout, esc, sendEmail } from "@/lib/email";
 import { valuationPurposeLabel } from "@/lib/options";
+import { getContact } from "@/lib/settings";
 import { site } from "@/lib/site";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { createPublicClient } from "@/lib/supabase/public";
@@ -51,7 +52,10 @@ function previewReference(prefix: string) {
   return `${prefix}-${yymm}-${Math.random().toString(16).slice(2, 8).toUpperCase()}`;
 }
 
-const genericError = "We couldn't send that just now. Please try again, or call us on " + site.phones[0].display + ".";
+async function genericError() {
+  const contact = await getContact();
+  return `We couldn't send that just now. Please try again, or call us on ${contact.phones[0].display}.`;
+}
 
 // ---------------------------------------------------------------------------
 // Valuation request
@@ -99,7 +103,7 @@ export async function submitValuationRequest(
   const { data: reference, error } = await createPublicClient().rpc("submit_valuation_request", { payload: v });
   if (error || !reference) {
     console.error("submit_valuation_request", error?.message);
-    return { ok: false, error: genericError };
+    return { ok: false, error: await genericError() };
   }
 
   after(async () => {
@@ -108,7 +112,7 @@ export async function submitValuationRequest(
       to: adminInbox,
       replyTo: v.email,
       subject: `New valuation request ${reference} · ${purpose}`,
-      html: emailLayout(
+      html: await emailLayout(
         `New valuation request ${reference}`,
         detailRows([
           ["Client", v.full_name],
@@ -130,7 +134,7 @@ export async function submitValuationRequest(
     await sendEmail({
       to: v.email,
       subject: `We've received your valuation request (${reference})`,
-      html: emailLayout(
+      html: await emailLayout(
         "Your valuation request is in",
         `<p>Dear ${esc(v.full_name.split(" ")[0])},</p>
          <p>Thank you for instructing Valueconnect Consulting. A registered valuer will review your request and send you a written fee quote and proposed inspection date.</p>
@@ -174,7 +178,7 @@ export async function trackValuationRequest(
   });
   if (error) {
     console.error("track_valuation_request", error.message);
-    return { ok: false, error: genericError };
+    return { ok: false, error: await genericError() };
   }
   if (!data) {
     return { ok: false, error: "We couldn't find a request with that reference and email. Check both and try again." };
@@ -242,7 +246,7 @@ export async function submitConsultation(
   const { data: reference, error } = await createPublicClient().rpc("submit_consultation", { payload: v });
   if (error || !reference) {
     console.error("submit_consultation", error?.message);
-    return { ok: false, error: genericError };
+    return { ok: false, error: await genericError() };
   }
 
   after(async () => {
@@ -250,7 +254,7 @@ export async function submitConsultation(
       to: adminInbox,
       replyTo: v.email,
       subject: `Consultation booking ${reference} · ${v.service}`,
-      html: emailLayout(
+      html: await emailLayout(
         `New consultation booking ${reference}`,
         detailRows([
           ["Client", v.full_name],
@@ -268,7 +272,7 @@ export async function submitConsultation(
       to: v.email,
       replyTo: adminInbox,
       subject: `Consultation request received (${reference})`,
-      html: emailLayout(
+      html: await emailLayout(
         "Thanks, we'll confirm your slot shortly",
         `<p>Dear ${esc(v.full_name.split(" ")[0])},</p><p>We've received your request for a ${esc(v.service)} consultation on ${esc(v.preferred_date)}${v.preferred_time ? ` at ${esc(v.preferred_time)}` : ""}. Our team will call or email to confirm.</p><p>Reference: <strong>${esc(reference)}</strong></p>`,
       ),
@@ -305,7 +309,7 @@ export async function submitMessage(_prev: ActionResult | null, formData: FormDa
   const { error } = await createPublicClient().rpc("submit_message", { payload });
   if (error) {
     console.error("submit_message", error.message);
-    return { ok: false, error: genericError };
+    return { ok: false, error: await genericError() };
   }
 
   after(async () => {
@@ -313,7 +317,7 @@ export async function submitMessage(_prev: ActionResult | null, formData: FormDa
       to: adminInbox,
       replyTo: v.email,
       subject: v.kind === "enquiry" ? `Property enquiry · ${property_title || "listing"}` : `Website message · ${v.subject || v.full_name}`,
-      html: emailLayout(
+      html: await emailLayout(
         v.kind === "enquiry" ? "New property enquiry" : "New website message",
         detailRows([
           ["Name", v.full_name],
@@ -342,7 +346,7 @@ export async function subscribeNewsletter(_prev: ActionResult | null, formData: 
   const { error } = await createPublicClient().rpc("subscribe_newsletter", { p_email: parsed.data.email });
   if (error) {
     console.error("subscribe_newsletter", error.message);
-    return { ok: false, error: genericError };
+    return { ok: false, error: await genericError() };
   }
   return { ok: true };
 }

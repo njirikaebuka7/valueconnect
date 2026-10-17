@@ -4,9 +4,11 @@ import { ButtonLink } from "@/components/ui/button";
 import { Accent, SectionHeading } from "@/components/ui/section-heading";
 import { WhatsAppIcon } from "@/components/ui/social-icons";
 import { faqs } from "@/lib/content";
-import { site, whatsappLink } from "@/lib/site";
+import { getContact } from "@/lib/settings";
+import { whatsappLink } from "@/lib/site";
 
-export function FaqSection({ limit }: { limit?: number }) {
+export async function FaqSection({ limit }: { limit?: number }) {
+  const contact = await getContact();
   return (
     <section className="py-20 sm:py-24">
       <div className="container-x grid gap-10 lg:grid-cols-12 lg:gap-14">
@@ -38,7 +40,7 @@ export function FaqSection({ limit }: { limit?: number }) {
                 Book a slot
               </ButtonLink>
               <a
-                href={whatsappLink("Hello Valueconnect, I have a question about a valuation.")}
+                href={whatsappLink(contact.whatsapp, "Hello Valueconnect, I have a question about a valuation.")}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="glass inline-flex h-11 items-center justify-center gap-2 rounded-xl px-5 text-sm font-semibold text-white hover:bg-white/20"
@@ -46,8 +48,8 @@ export function FaqSection({ limit }: { limit?: number }) {
                 <WhatsAppIcon className="h-4 w-4 text-aqua-300" /> WhatsApp
               </a>
             </div>
-            <a href={`tel:${site.phones[0].tel}`} className="mt-5 inline-flex items-center gap-2 text-sm text-navy-100/80 hover:text-white">
-              <Phone className="h-4 w-4 text-aqua-400" /> {site.phones[0].display}
+            <a href={`tel:${contact.phones[0].tel}`} className="mt-5 inline-flex items-center gap-2 text-sm text-navy-100/80 hover:text-white">
+              <Phone className="h-4 w-4 text-aqua-400" /> {contact.phones[0].display}
             </a>
           </div>
         </div>

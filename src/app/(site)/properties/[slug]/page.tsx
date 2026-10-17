@@ -27,7 +27,8 @@ import { WhatsAppIcon } from "@/components/ui/social-icons";
 import { getPropertyBySlug, getPublishedProperties, similarProperties } from "@/lib/data/properties";
 import { cn, formatNaira, formatPrice } from "@/lib/format";
 import { listingTypeLabels, propertyStatusLabels, propertyTypeLabels } from "@/lib/options";
-import { site, whatsappLink } from "@/lib/site";
+import { getContact } from "@/lib/settings";
+import { site, whatsappLink, type SiteContact } from "@/lib/site";
 import type { Property } from "@/lib/types";
 
 export const revalidate = 300;
@@ -61,7 +62,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function PropertyPage({ params }: Props) {
   const { slug } = await params;
-  const [property, all] = await Promise.all([getPropertyBySlug(slug), getPublishedProperties()]);
+  const [property, all, contact] = await Promise.all([getPropertyBySlug(slug), getPublishedProperties(), getContact()]);
   if (!property) notFound();
 
   const p = property;
@@ -207,13 +208,13 @@ export default async function PropertyPage({ params }: Props) {
                 </div>
                 <div className="mt-3 grid grid-cols-2 gap-2">
                   <a
-                    href={`tel:${site.phones[0].tel}`}
+                    href={`tel:${contact.phones[0].tel}`}
                     className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-surface text-sm font-semibold text-navy-800 ring-1 ring-line transition hover:bg-navy-50"
                   >
                     <Phone className="h-4 w-4" /> Call
                   </a>
                   <a
-                    href={whatsappLink(`Hello Valueconnect, I'm interested in "${p.title}" ${url}`)}
+                    href={whatsappLink(contact.whatsapp, `Hello Valueconnect, I'm interested in "${p.title}" ${url}`)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-surface text-sm font-semibold text-navy-800 ring-1 ring-line transition hover:bg-navy-50"
@@ -256,7 +257,7 @@ export default async function PropertyPage({ params }: Props) {
 
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd(p, url)).replace(/</g, "\\u003c") }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd(p, url, contact)).replace(/</g, "\\u003c") }}
       />
     </div>
   );
@@ -291,7 +292,7 @@ function KeyFacts({ p }: { p: Property }) {
   );
 }
 
-function jsonLd(p: Property, url: string) {
+function jsonLd(p: Property, url: string, contact: SiteContact) {
   return {
     "@context": "https://schema.org",
     "@type": "RealEstateListing",
@@ -321,6 +322,6 @@ function jsonLd(p: Property, url: string) {
         addressCountry: "NG",
       },
     },
-    provider: { "@type": "RealEstateAgent", name: site.name, telephone: site.phones[0].tel, email: site.email },
+    provider: { "@type": "RealEstateAgent", name: site.name, telephone: contact.phones[0].tel, email: contact.email },
   };
 }

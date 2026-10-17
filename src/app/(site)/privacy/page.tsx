@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { LegalPage } from "@/components/home/legal-page";
+import { getContact } from "@/lib/settings";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -8,7 +9,8 @@ export const metadata: Metadata = {
   alternates: { canonical: "/privacy" },
 };
 
-export default function PrivacyPage() {
+export default async function PrivacyPage() {
+  const contact = await getContact();
   return (
     <LegalPage title="Privacy policy" updated="October 2026">
       <p>
@@ -54,13 +56,13 @@ export default function PrivacyPage() {
       <p>
         You may ask to access, correct, delete or receive a copy of your personal data, object to or restrict certain
         processing, and withdraw consent. To exercise these rights, email{" "}
-        <a href={`mailto:${site.email}`}>{site.email}</a>. You may also complain to the Nigeria Data Protection
+        <a href={`mailto:${contact.email}`}>{contact.email}</a>. You may also complain to the Nigeria Data Protection
         Commission.
       </p>
 
       <h2>Contact</h2>
       <p>
-        {site.name}, {site.address.full} · {site.phones[0].display} · <a href={`mailto:${site.email}`}>{site.email}</a>
+        {site.name}, {contact.address} · {contact.phones[0].display} · <a href={`mailto:${contact.email}`}>{contact.email}</a>
       </p>
     </LegalPage>
   );

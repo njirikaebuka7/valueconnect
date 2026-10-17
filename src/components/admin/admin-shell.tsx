@@ -9,6 +9,7 @@ import {
   LayoutDashboard,
   LogOut,
   MoreHorizontal,
+  Settings,
   Users,
   X,
 } from "lucide-react";
@@ -49,9 +50,10 @@ export function AdminShell({
     { href: "/admin/consultations", label: "Consultations", short: "Bookings", icon: CalendarClock },
     { href: "/admin/inbox", label: "Inbox", short: "Inbox", icon: Inbox, badge: newMessages },
     { href: "/admin/subscribers", label: "Subscribers", short: "Subscribers", icon: Users },
+    { href: "/admin/settings", label: "Settings", short: "Settings", icon: Settings },
   ];
   const tabs = [nav[0], nav[1], nav[2], nav[4]];
-  const overflow = [nav[3], nav[5]];
+  const overflow = [nav[3], nav[5], nav[6]];
 
   return (
     <div className="min-h-dvh lg:grid lg:grid-cols-[17rem_1fr]">

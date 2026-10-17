@@ -3,10 +3,12 @@ import { ButtonLink } from "@/components/ui/button";
 import { Photo } from "@/components/ui/photo";
 import { WhatsAppIcon } from "@/components/ui/social-icons";
 import { photos } from "@/lib/images";
+import { getContact } from "@/lib/settings";
 import { whatsappLink } from "@/lib/site";
 import { HeroSearch } from "./hero-search";
 
-export function Hero() {
+export async function Hero() {
+  const contact = await getContact();
   return (
     <section className="px-2 pt-[4.5rem] sm:px-3 lg:px-4 lg:pt-[5.5rem]">
       <div className="relative isolate overflow-hidden rounded-[1.75rem] bg-navy-950 text-white shadow-[0_40px_90px_-40px_rgb(1_51_152/0.7)] sm:rounded-[2.25rem]">
@@ -40,7 +42,7 @@ export function Hero() {
             ESVARBON-registered · Nationwide
           </p>
 
-          <h1 className="hero-rise mt-6 max-w-5xl text-[2.6rem] leading-[1.02] font-extrabold tracking-[-0.035em] text-balance text-white sm:text-6xl lg:text-[5.25rem]" style={{ "--d": "80ms" } as React.CSSProperties}>
+          <h1 className="hero-rise mt-6 max-w-4xl text-[2.25rem] leading-[1.04] font-extrabold tracking-[-0.03em] text-balance text-white sm:text-[3.25rem] lg:text-[4.25rem]" style={{ "--d": "80ms" } as React.CSSProperties}>
             Valuation, estate agency &amp; auctioneering{" "}
             <span className="font-accent text-gradient">you can trust.</span>
           </h1>
@@ -55,7 +57,7 @@ export function Hero() {
               Request a valuation <ArrowRight className="h-4 w-4" />
             </ButtonLink>
             <a
-              href={whatsappLink("Hello Valueconnect, I'd like to speak to a valuer.")}
+              href={whatsappLink(contact.whatsapp, "Hello Valueconnect, I'd like to speak to a valuer.")}
               target="_blank"
               rel="noopener noreferrer"
               className="glass inline-flex h-13 items-center justify-center gap-2 rounded-2xl px-6 text-[0.95rem] font-semibold text-white transition hover:bg-white/20"
