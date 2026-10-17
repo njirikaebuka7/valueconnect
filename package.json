@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "setup:supabase": "node scripts/setup-supabase.mjs",
+    "go-live": "node scripts/go-live.mjs",
+    "seed:generate": "npx tsx scripts/generate-seed.ts"
   },
   "dependencies": {
     "@fontsource/oswald": "^5.3.0",

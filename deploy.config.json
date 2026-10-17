@@ -1,0 +1,13 @@
+{
+  "$comment": "Non-secret settings for go-live. Tokens never go here: they come from SUPABASE_ACCESS_TOKEN and VERCEL_TOKEN in the environment.",
+  "siteUrl": "https://valueconnect.com.ng",
+  "supabase": {
+    "projectRef": "zbzqsjbrwvvdlslomiib",
+    "url": "https://zbzqsjbrwvvdlslomiib.supabase.co"
+  },
+  "adminEmails": ["admin@trulicares.com"],
+  "vercel": {
+    "project": "valueconnect",
+    "domains": ["valueconnect.com.ng", "www.valueconnect.com.ng"]
+  }
+}

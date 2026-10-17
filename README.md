@@ -28,46 +28,30 @@ cp .env.example .env.local   # fill in the Supabase values
 npm run dev
 ```
 
-## Supabase setup (one time)
+## Going live (one command)
 
-1. Create a project (region **West EU (London)** is closest to Nigeria).
-2. Generate a personal access token: Account → Access Tokens.
-3. Run:
+Non-secret settings (Supabase project, admin emails, domains) are in `deploy.config.json`. The only secrets are two tokens, read from the environment:
 
-   ```bash
-   npx tsx scripts/generate-seed.ts          # refresh supabase/seed.sql from the sample listings
-   SUPABASE_ACCESS_TOKEN=... SUPABASE_PROJECT_REF=... \
-   SITE_URL=https://valueconnect.com.ng ADMIN_EMAILS=you@example.com \
-   node scripts/setup-supabase.mjs
-   ```
-
-   This applies the migrations, seeds the sample listings, registers admin emails, disables public sign-ups and prints the env vars for Vercel.
-4. Create each admin's login in the Supabase dashboard: **Authentication → Users → Add user** (use the same email as in `ADMIN_EMAILS`, tick *Auto confirm*). They set their own password, and can use **Forgot password** on `/admin/login` later.
-
-## Deploying to Vercel
-
-Env vars (Production and Preview):
-
-| Name | Value |
+| Variable | Where to create it |
 | --- | --- |
-| `NEXT_PUBLIC_SUPABASE_URL` | `https://<ref>.supabase.co` |
-| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Publishable (or legacy anon) key |
-| `NEXT_PUBLIC_SITE_URL` | `https://valueconnect.com.ng` |
-| `RESEND_API_KEY` | Optional, enables email alerts |
-| `EMAIL_FROM` | Optional, e.g. `Valueconnect <no-reply@valueconnect.com.ng>` (domain must be verified in Resend) |
-| `ADMIN_NOTIFY_EMAIL` | Optional, defaults to `info@valueconnect.com.ng` |
-
-With the Vercel CLI and a token:
+| `SUPABASE_ACCESS_TOKEN` | supabase.com → avatar → Access Tokens |
+| `VERCEL_TOKEN` | vercel.com → Account Settings → Tokens |
 
 ```bash
-npx vercel link --yes --project valueconnect --token "$VERCEL_TOKEN"
-npx vercel env add NEXT_PUBLIC_SUPABASE_URL production --token "$VERCEL_TOKEN"
-# …repeat for the other variables (and for "preview")
-npx vercel deploy --prod --token "$VERCEL_TOKEN"
-npx vercel domains add valueconnect.com.ng --token "$VERCEL_TOKEN"
+npm run go-live -- --dry-run   # shows what will happen
+npm run go-live                # does it
 ```
 
-Then add the DNS records Vercel shows (an `A` record for the apex and a `CNAME` for `www`) at the domain registrar.
+This:
+1. Applies `supabase/migrations`, seeds the sample listings (only into an empty table), registers the admin emails, disables public sign-ups and sets the auth redirect URLs.
+2. Creates or updates the Vercel project, sets `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` and `NEXT_PUBLIC_SITE_URL`, deploys to production, links the GitHub repo for auto-deploys when the Vercel GitHub app allows it, and adds the domains.
+3. Prints the DNS records to add at the registrar: an `A` record `@ → 76.76.21.21` and a `CNAME` `www → cname.vercel-dns.com`.
+
+Optional email alerts: also set `RESEND_API_KEY` (plus `EMAIL_FROM` and `ADMIN_NOTIFY_EMAIL`) before running it.
+
+**Admin login:** create each admin's account in the Supabase dashboard (Authentication → Users → Add user → Create new user, tick *Auto Confirm*), using an email listed in `deploy.config.json`. Then sign in at `/admin/login`.
+
+Run only the database part with `npm run setup:supabase`.
 
 ## Project map
 
