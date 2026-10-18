@@ -10,8 +10,7 @@ export const metadata: Metadata = { title: "Sign in" };
 export default function AdminLoginPage() {
   return (
     <div className="grid min-h-dvh lg:grid-cols-[1.05fr_1fr]">
-      <aside className="bg-navy-mesh relative hidden overflow-hidden p-12 text-white lg:flex lg:flex-col lg:justify-between">
-        <div className="bg-grid-faint absolute inset-0 opacity-60" aria-hidden />
+      <aside className="bg-navy-900 relative hidden overflow-hidden p-12 text-white lg:flex lg:flex-col lg:justify-between">
         <div className="relative">
           <Logo tone="light" />
         </div>
@@ -21,7 +20,7 @@ export default function AdminLoginPage() {
             Staff portal
           </p>
           <h1 className="mt-4 text-4xl leading-tight font-bold text-white">
-            Every request, listing and client, <span className="font-accent text-gradient">in one place.</span>
+            Every request, listing and client, <span className="font-accent text-aqua-400">in one place.</span>
           </h1>
           <p className="mt-4 text-sm leading-relaxed text-navy-100/75">
             Review valuation requests, send fee quotes, book inspections and keep listings up to date from any device.

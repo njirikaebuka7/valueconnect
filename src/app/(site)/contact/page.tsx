@@ -8,18 +8,20 @@ import { WhatsAppIcon } from "@/components/ui/social-icons";
 import { photos } from "@/lib/images";
 import { getContact } from "@/lib/settings";
 import { whatsappLink, type SiteContact } from "@/lib/site";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Contact us",
-  description: "Visit, call, email or WhatsApp Valueconnect Consulting, Estate Surveyors & Valuers in Victoria Island, Lagos.",
-  alternates: { canonical: "/contact" },
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Contact Us: Victoria Island, Lagos Office",
+  description:
+    "Visit, call, email or WhatsApp Valueconnect Consulting, Estate Surveyors & Valuers in Victoria Island, Lagos.",
+  path: "/contact",
+});
 
 const contactCards = (contact: SiteContact) => [
   {
     icon: MapPin,
-    label: "Visit our office",
-    value: contact.address,
+    label: contact.addresses.length > 1 ? "Visit our offices" : "Visit our office",
+    value: contact.addresses.join("\n"),
     href: contact.mapLink,
     cta: "Get directions",
     external: true,
@@ -34,7 +36,7 @@ const contactCards = (contact: SiteContact) => [
   {
     icon: Mail,
     label: "Email us",
-    value: contact.email,
+    value: contact.emails.join(" · "),
     href: `mailto:${contact.email}`,
     cta: "Send an email",
   },
@@ -57,7 +59,7 @@ export default async function ContactPage() {
         eyebrow="Get in touch"
         title={
           <>
-            Let&apos;s talk about your <span className="font-accent text-gradient">next move</span>
+            Let&apos;s talk about your <span className="font-accent text-aqua-400">next move</span>
           </>
         }
         description="Whether it's a valuation, a listing or a land title question, a registered professional will get back to you."
@@ -78,7 +80,7 @@ export default async function ContactPage() {
                     <Icon className="h-5 w-5" />
                   </span>
                   <p className="mt-4 text-xs font-bold tracking-[0.12em] text-muted uppercase">{label}</p>
-                  <p className="mt-1 flex-1 text-sm font-semibold text-ink">{value}</p>
+                  <p className="mt-1 flex-1 text-sm font-semibold break-words whitespace-pre-line text-ink">{value}</p>
                   <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-navy-700">
                     {cta} <ArrowUpRight className="h-4 w-4" />
                   </span>

@@ -4,9 +4,10 @@ import { Oswald, Plus_Jakarta_Sans } from "next/font/google";
 import { RevealObserver } from "@/components/ui/reveal";
 import { site } from "@/lib/site";
 
-// Self-hosted at build time, preloaded, with metric-matched fallbacks so text doesn't jump.
+// Self-hosted at build time, with metric-matched fallbacks so text doesn't jump. Only the
+// Latin file is preloaded; the extended file (₦ and accented names) still loads when used.
 const jakarta = Plus_Jakarta_Sans({
-  subsets: ["latin", "latin-ext"],
+  subsets: ["latin"],
   display: "swap",
   variable: "--font-jakarta",
 });
@@ -23,7 +24,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
     default: "Valueconnect Consulting | Estate Surveyors & Valuers, Lagos",
-    template: "%s | Valueconnect Consulting",
+    template: "%s | Valueconnect",
   },
   description: site.description,
   applicationName: site.name,
@@ -48,6 +49,11 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image" },
   appleWebApp: { capable: true, title: "Valueconnect", statusBarStyle: "black-translucent" },
   formatDetection: { telephone: false },
+  // Set these in Vercel to verify the site in Google Search Console / Bing Webmaster Tools.
+  verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION,
+    ...(process.env.BING_SITE_VERIFICATION && { other: { "msvalidate.01": process.env.BING_SITE_VERIFICATION } }),
+  },
 };
 
 export const viewport: Viewport = {

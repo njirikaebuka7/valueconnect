@@ -346,6 +346,8 @@ export function PropertyExplorer({ properties }: { properties: Property[] }) {
           </div>
         )}
 
+        {/* Keeps the heading outline in order: cards use h3. */}
+        <h2 className="sr-only">Listings</h2>
         {results.length > 0 ? (
           <div
             className={cn(

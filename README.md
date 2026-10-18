@@ -3,7 +3,7 @@
 Website and admin platform for Valueconnect Consulting, Estate Surveyors & Valuers (Victoria Island, Lagos).
 
 - **Public site:** home, about, services (one page per service), property listings with filters and saved homes, valuation requests (multi-step), request tracking, consultation booking, contact. Installable as an app on phones (PWA).
-- **Admin (`/admin`):** dashboard, valuation requests (status, fee quote, inspection date, reply to client, internal notes, timeline), property manager with photo uploads, consultations, inbox, newsletter subscribers, and settings for the address, phones, email, WhatsApp and social links.
+- **Admin (`/admin`):** dashboard, valuation requests (status, fee quote, inspection date, reply to client, internal notes, timeline), property manager with photo uploads, consultations, inbox, newsletter subscribers, and Settings: office addresses, phone numbers and emails (add, remove, choose the main one), WhatsApp, social links, and changing the admin's own password.
 - **Stack:** Next.js 16 (App Router, Server Actions), Tailwind CSS 4, Supabase (Postgres, Auth, Storage), deployed on Vercel. Optional email alerts through Resend.
 
 ## How data flows
@@ -49,6 +49,8 @@ This:
 3. Prints the DNS records to add at the registrar: an `A` record `@ → 76.76.21.21` and a `CNAME` `www → cname.vercel-dns.com`.
 
 Optional email alerts: also set `RESEND_API_KEY` (plus `EMAIL_FROM` and `ADMIN_NOTIFY_EMAIL`) before running it.
+
+**Search engines:** to verify the site in Google Search Console (or Bing Webmaster Tools), add `GOOGLE_SITE_VERIFICATION` (or `BING_SITE_VERIFICATION`) in Vercel → Settings → Environment Variables with the code from the HTML-tag method, redeploy, then submit `https://valueconnect.com.ng/sitemap.xml`. Every page has its own title, description, canonical URL and share card (`src/lib/seo.ts`), plus structured data for the business, services, listings, breadcrumbs and FAQs.
 
 **Admin login:** create each admin's account in the Supabase dashboard (Authentication → Users → Add user → Create new user, tick *Auto Confirm*), using an email listed in `deploy.config.json`. Then sign in at `/admin/login`.
 

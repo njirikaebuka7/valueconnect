@@ -20,6 +20,8 @@ import {
 import { serviceImages } from "@/lib/images";
 import { getContact } from "@/lib/settings";
 import { whatsappLink } from "@/lib/site";
+import { JsonLd } from "@/components/seo/json-ld";
+import { absoluteUrl, breadcrumbJsonLd, organizationId, pageMetadata } from "@/lib/seo";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -32,12 +34,12 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const service = getService((await params).slug);
   if (!service) return {};
-  return {
-    title: service.title,
-    description: service.card,
-    alternates: { canonical: `/services/${service.slug}` },
-    openGraph: { images: [{ url: `${serviceImages[service.slug]}?auto=format&fit=crop&w=1200&q=75` }] },
-  };
+  return pageMetadata({
+    title: service.seo.title,
+    description: service.seo.description,
+    path: `/services/${service.slug}`,
+    images: [{ url: serviceImages[service.slug], alt: service.title }],
+  });
 }
 
 export default async function ServicePage({ params }: Props) {
@@ -49,6 +51,25 @@ export default async function ServicePage({ params }: Props) {
 
   return (
     <>
+      <JsonLd
+        data={[
+          {
+            "@context": "https://schema.org",
+            "@type": "Service",
+            name: service.title,
+            serviceType: service.title,
+            description: service.seo.description,
+            url: absoluteUrl(`/services/${service.slug}`),
+            image: absoluteUrl(serviceImages[service.slug]),
+            provider: { "@id": organizationId },
+            areaServed: { "@type": "Country", name: "Nigeria" },
+          },
+          breadcrumbJsonLd([
+            { name: "Services", path: "/services" },
+            { name: service.title, path: `/services/${service.slug}` },
+          ]),
+        ]}
+      />
       <PageHero
         eyebrow={service.title}
         title={service.headline}
@@ -75,7 +96,7 @@ export default async function ServicePage({ params }: Props) {
           <div className="space-y-14 lg:col-span-8">
             <div data-reveal>
               <div className="flex items-center gap-4">
-                <span className="grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-navy-700 to-navy-950 text-aqua-300 shadow-card">
+                <span className="grid h-14 w-14 place-items-center rounded-2xl bg-navy-800 text-aqua-300 shadow-card">
                   <ServiceIcon icon={service.icon} className="h-6 w-6" />
                 </span>
                 <p className="eyebrow">Overview</p>
@@ -136,8 +157,7 @@ export default async function ServicePage({ params }: Props) {
                   </ul>
                 </div>
 
-                <div data-reveal className="bg-navy-mesh relative overflow-hidden rounded-[2rem] p-6 text-white sm:p-9">
-                  <div aria-hidden className="absolute -top-20 -right-20 h-56 w-56 rounded-full bg-aqua-500/25 blur-3xl" />
+                <div data-reveal className="bg-navy-900 relative overflow-hidden rounded-[2rem] p-6 text-white sm:p-9">
                   <div className="relative flex items-center gap-3">
                     <span className="glass grid h-11 w-11 place-items-center rounded-xl text-aqua-300">
                       <FileText className="h-5 w-5" />
@@ -188,8 +208,7 @@ export default async function ServicePage({ params }: Props) {
 
           <aside className="lg:col-span-4">
             <div className="sticky top-28 space-y-4">
-              <div className="bg-navy-mesh relative overflow-hidden rounded-[2rem] p-6 text-white shadow-lift sm:p-7">
-                <div aria-hidden className="absolute -top-16 -right-16 h-44 w-44 rounded-full bg-aqua-500/30 blur-3xl" />
+              <div className="bg-navy-900 relative overflow-hidden rounded-[2rem] p-6 text-white shadow-lift sm:p-7">
                 <p className="relative text-[0.7rem] font-bold tracking-[0.16em] text-aqua-200 uppercase">Get started</p>
                 <h2 className="relative mt-2 text-xl font-bold text-white">
                   {isValuation ? "Request a written fee quote" : `Talk to us about ${service.short.toLowerCase()}`}

@@ -120,8 +120,7 @@ function TrackResult({ r }: { r: TrackedRequest }) {
 
   return (
     <div className="animate-fade-up space-y-5">
-      <div className="bg-navy-mesh relative overflow-hidden rounded-[2rem] p-6 text-white shadow-lift sm:p-8">
-        <div className="bg-grid-faint absolute inset-0 opacity-50" aria-hidden />
+      <div className="bg-navy-900 relative overflow-hidden rounded-[2rem] p-6 text-white shadow-lift sm:p-8">
         <div className="relative">
           <p className="text-[0.68rem] font-bold tracking-[0.16em] text-aqua-300 uppercase">Reference</p>
           <div className="mt-1 flex flex-wrap items-center gap-3">

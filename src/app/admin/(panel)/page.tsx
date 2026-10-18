@@ -165,7 +165,7 @@ export default async function AdminDashboard() {
                 <div key={m.key} className="flex h-full flex-1 flex-col items-center justify-end gap-2">
                   <span className="text-xs font-bold text-ink">{m.count}</span>
                   <div
-                    className="w-full max-w-10 rounded-t-lg bg-gradient-to-t from-navy-700 to-aqua-500"
+                    className="w-full max-w-10 rounded-t-lg bg-navy-600"
                     style={{ height: `${Math.max(4, (m.count / maxMonth) * 100)}%` }}
                     aria-hidden
                   />

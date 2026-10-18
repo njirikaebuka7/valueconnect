@@ -8,15 +8,14 @@ const icons = [ShieldCheck, Scale, BadgeCheck, FileSearch, FileText, CalendarChe
 
 export function WhyChooseUs() {
   return (
-    <section className="bg-navy-mesh relative overflow-hidden py-20 text-white sm:py-28">
-      <div aria-hidden className="bg-grid-faint absolute inset-0 opacity-40" />
+    <section className="bg-navy-900 relative overflow-hidden py-20 text-white sm:py-28">
       <div className="container-x relative">
         <SectionHeading
           tone="light"
           eyebrow="Why Valueconnect"
           title={
             <>
-              Advice you can take to the <span className="font-accent text-gradient">bank</span>
+              Advice you can take to the <span className="font-accent text-aqua-400">bank</span>
             </>
           }
           description="In a market where asking prices and paperwork can mislead, we inspect, verify and value property on the facts."

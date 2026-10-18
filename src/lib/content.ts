@@ -8,6 +8,8 @@ export interface Service {
   short: string;
   headline: string;
   card: string;
+  /** Search result title and description for the service page. */
+  seo: { title: string; description: string };
   intro: [string, string];
   included: string[];
   audience: string[];
@@ -22,6 +24,11 @@ export const services: Service[] = [
     headline: "Unlock the true worth of your assets",
     icon: "valuation",
     card: "Independent, inspection-led valuations for lending, financial reporting, insurance, tax, transactions and disputes, signed and sealed.",
+    seo: {
+      title: "Property & Asset Valuation in Lagos, Nigeria",
+      description:
+        "Independent valuations of land, buildings, plant & machinery by ESVARBON-registered valuers in Lagos, for mortgages, financial reporting, insurance and tax.",
+    },
     intro: [
       "A valuation is only as strong as the evidence behind it and the name signed beneath it. Our ESVARBON-registered valuers inspect every property, review its title documents and build each figure from current market evidence. They then sign and seal the report, so accountability is never in doubt.",
       "We value land, residential, commercial and industrial property, and plant and machinery. Purposes include mortgage and loan security, financial reporting, insurance, mergers and acquisitions, compensation, taxation, probate, liquidation and sale or purchase decisions. Every report states its basis of value, assumptions and evidence in line with International and Nigerian Valuation Standards.",
@@ -51,6 +58,11 @@ export const services: Service[] = [
     headline: "Maximise your asset's potential",
     icon: "facility",
     card: "Tenants, rent, maintenance and facility services managed to protect both your income and your building's long-term value.",
+    seo: {
+      title: "Property & Facility Management in Lagos",
+      description:
+        "Tenant management, rent collection, maintenance and facility services for residential and commercial property in Lagos and across Nigeria.",
+    },
     intro: [
       "A well-run building holds its value; a neglected one quietly loses it. We manage residential, commercial and mixed-use property for owners in Nigeria and abroad. We handle tenants, rent, service charges and statutory obligations, so you are not chasing them yourself.",
       "On the facilities side, we plan and supervise maintenance, engage and oversee vetted contractors, and coordinate security, cleaning, power, water and waste. Because we are valuers, we manage with an eye on capital value as well as this month's rent, and you receive clear, regular reports on income, spending, occupancy and condition.",
@@ -79,6 +91,11 @@ export const services: Service[] = [
     headline: "Your partner in Nigerian property transactions",
     icon: "agency",
     card: "Sales, lettings and acquisitions priced from market evidence, with documents reviewed before any property is marketed.",
+    seo: {
+      title: "Estate Agency: Buy, Sell & Let Property in Lagos",
+      description:
+        "Property sales, lettings and acquisitions in Lagos and across Nigeria, priced from market evidence, with title documents checked before anything is marketed.",
+    },
     intro: [
       "In a market crowded with unregistered agents and optimistic asking prices, the safest transaction starts with a registered professional. We let, sell and acquire residential and commercial property, pricing every instruction from market evidence rather than guesswork.",
       "Before we market a property we review its documents; before you commit to one, we help you check them. We qualify buyers and tenants, negotiate price and terms, and work alongside your solicitor through to completion and Governor's Consent, so the property you pay for is the property you get.",
@@ -108,6 +125,11 @@ export const services: Service[] = [
     headline: "Invest with confidence",
     icon: "feasibility",
     card: "Test demand, costs, returns and risk before you build, buy or lend, independently appraised and clearly reported.",
+    seo: {
+      title: "Feasibility & Viability Appraisal in Nigeria",
+      description:
+        "Independent feasibility and viability studies for developers, investors and lenders: demand, costs, returns and risk tested before you build, buy or lend.",
+    },
     intro: [
       "Many stalled projects looked fine on a spreadsheet. A feasibility and viability appraisal tests whether a proposed development or investment works in the real market: what will sell or let, at what price, how quickly, and at what cost to deliver.",
       "We combine site assessment, market research and financial modelling, including cash flow, NPV, IRR and payback. We then test the result against the variables that move most in Nigeria: construction costs, exchange rates, interest rates and sales pace, so you can put the report in front of lenders, investors and partners with confidence.",
@@ -137,6 +159,11 @@ export const services: Service[] = [
     headline: "Navigate Nigerian land law with ease",
     icon: "land",
     card: "C of O, Governor's Consent, surveys, regularisation and title perfection, handled from first search to registered document.",
+    seo: {
+      title: "Land Titles: C of O & Governor's Consent, Lagos",
+      description:
+        "Certificate of Occupancy, Governor's Consent, surveys, regularisation and title perfection in Lagos and across Nigeria, from first search to registered title.",
+    },
     intro: [
       "Under the Land Use Act, an imperfect title is a risk to owners, buyers and lenders alike. A missing Governor's Consent, an uncharted survey or an unregularised grant can stall a sale, a mortgage or a compensation claim, and in Lagos it can also invite competing claims.",
       "We take you from first search to registered document. We check status at the Lands Registry and with the Surveyor-General, prepare and lodge applications for C of O, Governor's Consent and regularisation, coordinate surveys and follow your file through each stage, telling you plainly what is achievable and what to expect.",
@@ -166,6 +193,11 @@ export const services: Service[] = [
     headline: "Secure the best value through transparent sales",
     icon: "auction",
     card: "Transparent auctions of land, buildings, plant, machinery and other assets, valued first, sold openly and fully documented.",
+    seo: {
+      title: "Property & Asset Auctioneering in Nigeria",
+      description:
+        "Transparent auctions of land, buildings, plant, machinery and other assets in Nigeria: valued first, sold openly and fully documented.",
+    },
     intro: [
       "When an asset has to be sold, whether by a lender, receiver, liquidator, executor or company, the process must be transparent and defensible. Our auctions are run by valuers, so every sale starts from an independent view of value and a reserve price grounded in evidence.",
       "We handle land and buildings, plant and machinery, vehicles, and office and household assets, from valuation, verification and lotting to publicity, bidder registration, the sale itself and the paperwork that follows. Sellers get an audit trail that stands up to scrutiny; buyers get a fair, open process.",

@@ -9,8 +9,7 @@ const items = [
 
 export function TrustBand() {
   return (
-    <section className="bg-navy-mesh relative overflow-hidden py-14 sm:py-16">
-      <div aria-hidden className="bg-grid-faint absolute inset-0 opacity-50" />
+    <section className="bg-navy-900 relative overflow-hidden py-14 sm:py-16">
       <div className="container-x relative">
         <ul className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
           {items.map(({ value, label, icon: Icon }, i) => (

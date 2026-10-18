@@ -9,13 +9,14 @@ import { Photo } from "@/components/ui/photo";
 import { services } from "@/lib/content";
 import { cn } from "@/lib/format";
 import { photos, serviceImages } from "@/lib/images";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Our services",
+export const metadata: Metadata = pageMetadata({
+  title: "Valuation, Agency & Property Services in Nigeria",
   description:
     "Valuations, property and facility management, estate agency, feasibility and viability appraisal, land administration and auctioneering across Nigeria.",
-  alternates: { canonical: "/services" },
-};
+  path: "/services",
+});
 
 export default function ServicesPage() {
   return (
@@ -24,7 +25,7 @@ export default function ServicesPage() {
         eyebrow="Our services"
         title={
           <>
-            Real estate expertise, <span className="font-accent text-gradient">end to end</span>
+            Real estate expertise, <span className="font-accent text-aqua-400">end to end</span>
           </>
         }
         description="Six services delivered by registered Estate Surveyors & Valuers, from a single valuation to managing an entire portfolio."
@@ -55,7 +56,7 @@ export default function ServicesPage() {
                 </div>
                 <span
                   className={cn(
-                    "absolute -bottom-6 grid h-16 w-16 place-items-center rounded-2xl bg-gradient-to-br from-navy-700 to-navy-950 text-aqua-300 shadow-lift ring-[6px]",
+                    "absolute -bottom-6 grid h-16 w-16 place-items-center rounded-2xl bg-navy-800 text-aqua-300 shadow-lift ring-[6px]",
                     flip ? "right-6 ring-surface" : "left-6 ring-white",
                   )}
                 >

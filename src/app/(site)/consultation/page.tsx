@@ -7,13 +7,14 @@ import { services } from "@/lib/content";
 import { photos } from "@/lib/images";
 import { getContact } from "@/lib/settings";
 import { whatsappLink } from "@/lib/site";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Book a consultation",
+export const metadata: Metadata = pageMetadata({
+  title: "Book a Consultation with a Registered Valuer",
   description:
     "Book a consultation with a registered Estate Surveyor & Valuer at our Victoria Island office, by phone or by video call.",
-  alternates: { canonical: "/consultation" },
-};
+  path: "/consultation",
+});
 
 const expect = [
   { icon: ClipboardList, title: "We scope your instruction", body: "What you need, who will rely on it and any deadlines." },
@@ -31,7 +32,7 @@ export default async function ConsultationPage({ searchParams }: { searchParams:
         eyebrow="Book a consultation"
         title={
           <>
-            Speak with a <span className="font-accent text-gradient">registered valuer</span>
+            Speak with a <span className="font-accent text-aqua-400">registered valuer</span>
           </>
         }
         description="At our Victoria Island office, by phone or on a video call. Pick a time that suits you and we'll confirm."
@@ -49,8 +50,7 @@ export default async function ConsultationPage({ searchParams }: { searchParams:
           </div>
 
           <aside className="space-y-4 lg:col-span-5">
-            <div className="bg-navy-mesh relative overflow-hidden rounded-[2rem] p-6 text-white sm:p-8">
-              <div aria-hidden className="absolute -top-16 -right-16 h-48 w-48 rounded-full bg-aqua-500/25 blur-3xl" />
+            <div className="bg-navy-900 relative overflow-hidden rounded-[2rem] p-6 text-white sm:p-8">
               <p className="relative flex items-center gap-2 text-[0.7rem] font-bold tracking-[0.16em] text-aqua-200 uppercase">
                 <CalendarCheck className="h-4 w-4" /> What to expect
               </p>

@@ -1,14 +1,17 @@
 import type { Metadata } from "next";
 import { SavedProperties } from "@/components/property/saved-properties";
 import { getPublishedProperties } from "@/lib/data/properties";
+import { pageMetadata } from "@/lib/seo";
 
 export const revalidate = 300;
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Saved homes",
-  description: "Properties you've saved on this device.",
-  robots: { index: false },
-};
+  description:
+    "Properties you've saved on this device.",
+  path: "/saved",
+  noindex: true,
+});
 
 export default async function SavedPage() {
   const properties = await getPublishedProperties();

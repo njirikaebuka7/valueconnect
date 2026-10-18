@@ -30,6 +30,8 @@ import { listingTypeLabels, propertyStatusLabels, propertyTypeLabels } from "@/l
 import { getContact } from "@/lib/settings";
 import { site, whatsappLink, type SiteContact } from "@/lib/site";
 import type { Property } from "@/lib/types";
+import { JsonLd } from "@/components/seo/json-ld";
+import { absoluteUrl, breadcrumbJsonLd, organizationId, pageMetadata } from "@/lib/seo";
 
 export const revalidate = 300;
 
@@ -44,20 +46,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const p = await getPropertyBySlug(slug);
   if (!p) return { title: "Property not found" };
-  const place = [p.area, p.city].filter(Boolean).join(", ");
-  const title = `${p.title}, ${place}`;
-  const description = `${listingTypeLabels[p.listingType]} · ${formatPrice(p)} · ${p.description.slice(0, 140)}`;
-  return {
+  // Titles often name the area already ("…, Oniru"); don't repeat it.
+  const place = [p.area, p.city].filter((x) => x && !p.title.toLowerCase().includes(x.toLowerCase())).join(", ");
+  const title = place ? `${p.title}, ${place}` : p.title;
+  const summary = p.description.replace(/\s+/g, " ").slice(0, 120).replace(/\s\S*$/, "");
+  return pageMetadata({
     title,
-    description,
-    alternates: { canonical: `/properties/${p.slug}` },
-    openGraph: {
-      title,
-      description,
-      type: "website",
-      images: p.images[0] ? [{ url: p.images[0].startsWith("https://images.unsplash.com/") ? `${p.images[0]}?auto=format&fit=crop&w=1200&h=630&q=75` : p.images[0] }] : undefined,
-    },
-  };
+    description: `${listingTypeLabels[p.listingType]} · ${formatPrice(p)}. ${summary}…`,
+    path: `/properties/${p.slug}`,
+    images: p.images[0] ? [{ url: p.images[0], alt: p.title }] : undefined,
+  });
 }
 
 export default async function PropertyPage({ params }: Props) {
@@ -112,7 +110,7 @@ export default async function PropertyPage({ params }: Props) {
             <KeyFacts p={p} />
 
             {p.titleDocument && (
-              <div className="mt-6 flex gap-4 rounded-3xl bg-gradient-to-br from-aqua-50 to-navy-50 p-5 ring-1 ring-aqua-100">
+              <div className="mt-6 flex gap-4 rounded-3xl bg-aqua-50 p-5 ring-1 ring-aqua-100">
                 <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-white text-aqua-600 shadow-card">
                   <ShieldCheck className="h-6 w-6" />
                 </span>
@@ -164,15 +162,14 @@ export default async function PropertyPage({ params }: Props) {
               <p className="mt-2 text-xs text-muted">Map location is approximate. Exact address shared on viewing.</p>
             </section>
 
-            <section className="bg-navy-mesh relative mt-10 overflow-hidden rounded-[2rem] p-6 text-white sm:p-8">
-              <div className="bg-grid-faint absolute inset-0 opacity-50" aria-hidden />
+            <section className="bg-navy-900 relative mt-10 overflow-hidden rounded-[2rem] p-6 text-white sm:p-8">
               <div className="relative sm:flex sm:items-center sm:justify-between sm:gap-8">
                 <div>
                   <p className="flex items-center gap-2 text-xs font-bold tracking-[0.14em] text-aqua-300 uppercase">
                     <FileCheck2 className="h-4 w-4" /> Buying or lending against it?
                   </p>
                   <h2 className="mt-2 text-2xl font-extrabold text-white">
-                    Need this property <span className="font-accent text-gradient">valued?</span>
+                    Need this property <span className="font-accent text-aqua-400">valued?</span>
                   </h2>
                   <p className="mt-2 max-w-md text-sm leading-relaxed text-navy-100/80">
                     Get an independent, signed and sealed valuation report from ESVARBON-registered valuers before you
@@ -255,9 +252,14 @@ export default async function PropertyPage({ params }: Props) {
 
       <PropertyActionBar propertyId={p.id} propertyTitle={p.title} price={price} url={url} />
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd(p, url, contact)).replace(/</g, "\\u003c") }}
+      <JsonLd
+        data={[
+          jsonLd(p, url, contact),
+          breadcrumbJsonLd([
+            { name: "Properties", path: "/properties" },
+            { name: p.title, path: `/properties/${p.slug}` },
+          ]),
+        ]}
       />
     </div>
   );
@@ -300,7 +302,7 @@ function jsonLd(p: Property, url: string, contact: SiteContact) {
     description: p.description,
     url,
     datePosted: p.createdAt,
-    image: p.images,
+    image: p.images.map(absoluteUrl),
     offers: p.priceOnRequest
       ? undefined
       : {
@@ -322,6 +324,6 @@ function jsonLd(p: Property, url: string, contact: SiteContact) {
         addressCountry: "NG",
       },
     },
-    provider: { "@type": "RealEstateAgent", name: site.name, telephone: contact.phones[0].tel, email: contact.email },
+    provider: { "@type": "RealEstateAgent", "@id": organizationId, name: site.name, telephone: contact.phones[0].tel, email: contact.email },
   };
 }

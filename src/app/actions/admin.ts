@@ -2,6 +2,7 @@
 
 import { revalidatePath, updateTag } from "next/cache";
 import { redirect } from "next/navigation";
+import { createClient as createSupabaseClient } from "@supabase/supabase-js";
 import { z } from "zod";
 import { requireAdmin } from "@/lib/auth";
 import { detailRows, emailEnabled, emailLayout, esc, sendEmail } from "@/lib/email";
@@ -9,6 +10,7 @@ import { formatDateTime, formatNaira, slugify } from "@/lib/format";
 import { valuationPurposeLabel, valuationStatusMeta } from "@/lib/options";
 import { getContact, SETTINGS_TAG } from "@/lib/settings";
 import { site, socialNetworks, type SocialKey } from "@/lib/site";
+import { supabaseKey, supabaseUrl } from "@/lib/supabase/config";
 import { createClient } from "@/lib/supabase/server";
 import type {
   ActionResult,
@@ -486,12 +488,25 @@ const sitePhone = z
   .max(30, "Enter a valid phone number")
   .regex(/^$|^[+\d][\d\s()-]{6,}$/, "Enter a valid phone number");
 
+/** Repeated form fields (phones, phones, …) → a cleaned list with at least one entry. */
+function listField(item: z.ZodType<string, string>, noun: string, max = 6) {
+  return z
+    .array(z.string())
+    .transform((list) => list.map((v) => v.trim()).filter(Boolean))
+    .pipe(
+      z
+        .array(item)
+        .min(1, `Add at least one ${noun}`)
+        .max(max, `Up to ${max} ${noun}s`)
+        .refine((list) => new Set(list.map((v) => v.toLowerCase())).size === list.length, `That ${noun} is listed twice`),
+    );
+}
+
 const settingsSchema = z.object({
-  address: z.string().trim().min(10, "Enter the full office address").max(300),
-  phone_1: sitePhone.refine(Boolean, "Enter the main phone number"),
-  phone_2: sitePhone,
+  addresses: listField(z.string().min(10, "Enter the full address").max(300), "address", 4),
+  phones: listField(sitePhone, "phone number"),
+  emails: listField(z.string().toLowerCase().pipe(z.email("Enter a valid email address")), "email address", 4),
   whatsapp: sitePhone,
-  email: z.string().trim().toLowerCase().pipe(z.email("Enter a valid email address")),
   ...(Object.fromEntries(socialNetworks.map((n) => [n.key, socialUrl(n.base)])) as Record<
     SocialKey,
     ReturnType<typeof socialUrl>
@@ -500,11 +515,17 @@ const settingsSchema = z.object({
 
 export async function saveSiteSettings(_prev: ActionResult | null, formData: FormData): Promise<ActionResult> {
   await requireAdmin();
-  const parsed = settingsSchema.safeParse(entries(formData));
+  const parsed = settingsSchema.safeParse({
+    ...entries(formData),
+    addresses: formData.getAll("addresses"),
+    phones: formData.getAll("phones"),
+    emails: formData.getAll("emails"),
+  });
   if (!parsed.success) {
     return { ok: false, error: "Please check the highlighted fields.", fieldErrors: fieldErrors(parsed.error) };
   }
-  const row = Object.fromEntries(Object.entries(parsed.data).map(([k, v]) => [k, v || null]));
+  const { addresses, phones, emails, ...rest } = parsed.data;
+  const row = { addresses, phones, emails, ...Object.fromEntries(Object.entries(rest).map(([k, v]) => [k, v || null])) };
   const supabase = await createClient();
   const { error } = await supabase.from("site_settings").upsert({ id: 1, ...row });
   if (error) return { ok: false, error: `Couldn't save: ${error.message}` };
@@ -512,4 +533,40 @@ export async function saveSiteSettings(_prev: ActionResult | null, formData: For
   updateTag(SETTINGS_TAG);
   revalidatePath("/", "layout");
   return { ok: true, message: "Saved. The website now shows these details." };
+}
+
+// ---------------------------------------------------------------------------
+// Admin password
+// ---------------------------------------------------------------------------
+
+const passwordSchema = z
+  .object({
+    current_password: z.string().min(1, "Enter your current password"),
+    new_password: z.string().min(8, "Use at least 8 characters").max(72, "Use 72 characters or fewer"),
+    confirm_password: z.string(),
+  })
+  .refine((v) => v.new_password === v.confirm_password, { path: ["confirm_password"], message: "The passwords don't match" })
+  .refine((v) => v.new_password !== v.current_password, { path: ["new_password"], message: "Choose a different password" });
+
+/** Changes the signed-in admin's password after checking the current one. No email is involved. */
+export async function changePassword(_prev: ActionResult | null, formData: FormData): Promise<ActionResult> {
+  const admin = await requireAdmin();
+  const parsed = passwordSchema.safeParse(entries(formData));
+  if (!parsed.success) {
+    return { ok: false, error: "Please check the highlighted fields.", fieldErrors: fieldErrors(parsed.error) };
+  }
+  const v = parsed.data;
+
+  // Check the current password on a throwaway client so the signed-in session is untouched.
+  const check = createSupabaseClient(supabaseUrl, supabaseKey, { auth: { persistSession: false, autoRefreshToken: false } });
+  const { error: wrong } = await check.auth.signInWithPassword({ email: admin.email, password: v.current_password });
+  if (wrong) {
+    return { ok: false, error: "Your current password isn't right.", fieldErrors: { current_password: "That isn't your current password" } };
+  }
+  await check.auth.signOut({ scope: "local" });
+
+  const supabase = await createClient();
+  const { error } = await supabase.auth.updateUser({ password: v.new_password });
+  if (error) return { ok: false, error: `Couldn't change the password: ${error.message}` };
+  return { ok: true, message: "Password changed. Use the new one next time you sign in." };
 }

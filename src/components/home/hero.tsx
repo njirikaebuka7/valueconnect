@@ -1,4 +1,4 @@
-import { ArrowRight, BadgeCheck, FileCheck2, ShieldCheck } from "lucide-react";
+import { ArrowRight, BadgeCheck, ShieldCheck } from "lucide-react";
 import { ButtonLink } from "@/components/ui/button";
 import { Photo } from "@/components/ui/photo";
 import { WhatsAppIcon } from "@/components/ui/social-icons";
@@ -22,17 +22,9 @@ export async function Hero() {
           quality={70}
           className="animate-hero-zoom -z-20 object-cover"
         />
-        {/* Light tint so the photo reads; a soft pool of shade behind the words keeps them legible. */}
-        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-navy-950/55 via-navy-950/20 to-navy-950/80" />
-        <div aria-hidden className="absolute inset-0 -z-10 bg-[radial-gradient(60%_50%_at_50%_45%,rgb(4_18_58/0.68),transparent_78%)]" />
-        <div
-          aria-hidden
-          className="absolute inset-0 -z-10"
-          style={{
-            background:
-              "radial-gradient(45% 55% at 85% 10%, rgb(3 203 250 / 0.22), transparent 65%), radial-gradient(50% 60% at 0% 90%, rgb(18 63 179 / 0.45), transparent 60%)",
-          }}
-        />
+        {/* Deep navy tint for contrast (and so the glass panels read), with extra shade behind the words. */}
+        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-navy-950/75 via-navy-950/55 to-navy-950/90" />
+        <div aria-hidden className="absolute inset-0 -z-10 bg-[radial-gradient(60%_50%_at_50%_45%,rgb(4_18_58/0.55),transparent_80%)]" />
 
         <div className="container-x relative flex min-h-[calc(100svh-5rem)] flex-col items-center justify-center pt-12 pb-10 text-center [text-shadow:0_2px_24px_rgb(4_18_58/0.45)] sm:pt-16 lg:min-h-[calc(100svh-6.5rem)] lg:pb-14">
           <p className="glass hero-in inline-flex items-center gap-2 rounded-full py-1.5 pr-4 pl-1.5 text-[0.7rem] font-bold tracking-[0.14em] text-aqua-100 uppercase sm:text-xs">
@@ -44,7 +36,7 @@ export async function Hero() {
 
           <h1 className="hero-rise mt-6 max-w-4xl text-[2.25rem] leading-[1.04] font-extrabold tracking-[-0.03em] text-balance text-white sm:text-[3.25rem] lg:text-[4.25rem]" style={{ "--d": "80ms" } as React.CSSProperties}>
             Valuation, estate agency &amp; auctioneering{" "}
-            <span className="font-accent text-gradient">you can trust.</span>
+            <span className="font-accent text-aqua-400">you can trust.</span>
           </h1>
 
           <p className="hero-in mt-5 max-w-2xl text-base leading-relaxed text-navy-100/85 sm:text-lg" style={{ "--d": "160ms" } as React.CSSProperties}>
@@ -80,31 +72,6 @@ export async function Hero() {
           </ul>
         </div>
 
-        {/* Floating glass cards on wide screens */}
-        <div
-          aria-hidden
-          className="glass animate-float absolute top-[30%] left-[4%] hidden w-56 rounded-2xl p-4 text-left 2xl:block"
-        >
-          <div className="flex items-center gap-3">
-            <span className="grid h-10 w-10 place-items-center rounded-xl bg-aqua-500/90 text-navy-950">
-              <FileCheck2 className="h-5 w-5" />
-            </span>
-            <div>
-              <p className="text-sm font-bold text-white">Sealed report</p>
-              <p className="text-xs text-navy-100/70">ESVARBON stamp</p>
-            </div>
-          </div>
-        </div>
-        <div
-          aria-hidden
-          className="glass animate-float absolute top-[36%] right-[4%] hidden w-60 rounded-2xl p-4 text-left [animation-delay:1.5s] 2xl:block"
-        >
-          <p className="text-[0.65rem] font-bold tracking-[0.14em] text-aqua-200 uppercase">Basis of value</p>
-          <p className="mt-1 text-sm font-bold text-white">Market &amp; Forced Sale Value</p>
-          <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-white/15">
-            <div className="h-full w-3/4 rounded-full bg-gradient-to-r from-aqua-400 to-navy-400" />
-          </div>
-        </div>
       </div>
     </section>
   );

@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
 import { PropertyExplorer } from "@/components/property/property-explorer";
 import { getPublishedProperties } from "@/lib/data/properties";
+import { pageMetadata } from "@/lib/seo";
 
 export const revalidate = 300;
 
-export const metadata: Metadata = {
-  title: "Properties for Sale & to Let in Nigeria",
+export const metadata: Metadata = pageMetadata({
+  title: "Properties for Sale & Rent in Lagos and Nigeria",
   description:
-    "Homes, offices, warehouses and land for sale and to let in Lagos, Abuja and across Nigeria, marketed by registered Estate Surveyors & Valuers who review documents before listing.",
-  alternates: { canonical: "/properties" },
-};
+    "Homes, offices, warehouses and land for sale and rent in Lagos, Abuja and across Nigeria, listed by registered Estate Surveyors & Valuers who check title first.",
+  path: "/properties",
+});
 
 export default async function PropertiesPage() {
   const properties = await getPublishedProperties();
@@ -23,7 +24,7 @@ export default async function PropertiesPage() {
             Explore properties
           </p>
           <h1 className="mt-3 text-[1.9rem] leading-tight font-extrabold sm:text-4xl lg:text-5xl">
-            Find a property with <span className="font-accent text-gradient-brand">paperwork you can trust</span>
+            Find a property with <span className="font-accent text-aqua-700">paperwork you can trust</span>
           </h1>
           <p className="mt-3 max-w-2xl text-[0.98rem] leading-relaxed text-body sm:text-lg">
             Homes, offices, warehouses and land across Nigeria, listed by registered Estate Surveyors &amp; Valuers who

@@ -63,7 +63,7 @@ export function Purposes() {
           <ul className="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {clientSegments.map((c) => (
               <li key={c.title} className="flex items-start gap-3 rounded-2xl bg-white p-4 ring-1 ring-line/80">
-                <span className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full bg-gradient-to-br from-aqua-400 to-navy-600" />
+                <span className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full bg-aqua-500" />
                 <div>
                   <p className="text-sm font-bold text-ink">{c.title}</p>
                   <p className="mt-0.5 text-xs text-body">{c.body}</p>

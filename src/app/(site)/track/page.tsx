@@ -3,12 +3,15 @@ import { PageHero } from "@/components/layout/page-hero";
 import { Accent } from "@/components/ui/section-heading";
 import { TrackForm } from "@/components/valuation/track-form";
 import { photos } from "@/lib/images";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Track your valuation",
-  description: "Follow the progress of your Valueconnect valuation request with your reference number and email.",
-  alternates: { canonical: "/track" },
-};
+  description:
+    "Follow the progress of your Valueconnect valuation request with your reference number and email.",
+  path: "/track",
+  noindex: true,
+});
 
 type Props = { searchParams: Promise<Record<string, string | string[] | undefined>> };
 

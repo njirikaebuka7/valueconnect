@@ -121,7 +121,7 @@ function MobileMenu({ pathname, onClose }: { pathname: string; onClose: () => vo
   return (
     <div role="dialog" aria-modal="true" aria-label="Menu" className="fixed inset-0 z-[60] lg:hidden">
       <button aria-label="Close menu" onClick={onClose} className="animate-fade-in absolute inset-0 bg-navy-950/60 backdrop-blur-sm" />
-      <div className="animate-sheet-up bg-navy-mesh absolute inset-x-0 bottom-0 max-h-[92dvh] overflow-y-auto rounded-t-[2rem] px-5 pt-3 pb-safe text-white">
+      <div className="animate-sheet-up bg-navy-900 absolute inset-x-0 bottom-0 max-h-[92dvh] overflow-y-auto rounded-t-[2rem] px-5 pt-3 pb-safe text-white">
         <div className="mx-auto mb-4 h-1.5 w-12 rounded-full bg-white/25" />
         <div className="flex items-center justify-between">
           <Logo tone="light" compact href={null} />

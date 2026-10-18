@@ -11,13 +11,14 @@ import { nigerianStates, valuationAssetTypes, valuationPurposes } from "@/lib/op
 import { getContact } from "@/lib/settings";
 import { site, whatsappLink } from "@/lib/site";
 import type { PropertyType } from "@/lib/types";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Request a Property Valuation",
+export const metadata: Metadata = pageMetadata({
+  title: "Request a Property Valuation in Lagos & Nigeria",
   description:
-    "Request an independent, signed and sealed valuation for mortgage, financial reporting, insurance, probate or sale from ESVARBON-registered valuers. Get a written fee quote.",
-  alternates: { canonical: "/valuation" },
-};
+    "Request an independent, signed and sealed valuation for mortgage, financial reporting, insurance or sale from ESVARBON-registered valuers. Written fee quote.",
+  path: "/valuation",
+});
 
 type Props = { searchParams: Promise<Record<string, string | string[] | undefined>> };
 
@@ -133,8 +134,7 @@ export default async function ValuationPage({ searchParams }: Props) {
               </ul>
             </div>
 
-            <div className="bg-navy-mesh relative overflow-hidden rounded-[1.75rem] p-6 text-white shadow-lift">
-              <div className="bg-grid-faint absolute inset-0 opacity-50" aria-hidden />
+            <div className="bg-navy-900 relative overflow-hidden rounded-[1.75rem] p-6 text-white shadow-lift">
               <div className="relative">
                 <div className="flex flex-wrap gap-2">
                   {site.accreditations.map((a) => (

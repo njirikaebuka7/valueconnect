@@ -65,7 +65,7 @@ export function Accent({
   className?: string;
 }) {
   return (
-    <span className={cn("font-accent", tone === "dark" ? "text-gradient" : "text-gradient-brand", className)}>
+    <span className={cn("font-accent", tone === "dark" ? "text-aqua-400" : "text-aqua-700", className)}>
       {children}
     </span>
   );

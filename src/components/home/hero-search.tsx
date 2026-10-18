@@ -159,7 +159,7 @@ function SelectPill({
         className,
       )}
     >
-      <span className="block text-[0.65rem] font-bold tracking-[0.12em] text-muted uppercase">{label}</span>
+      <span className="block text-[0.65rem] font-bold tracking-[0.12em] text-body uppercase">{label}</span>
       <select
         name={name}
         className="mt-0.5 w-full cursor-pointer appearance-none truncate bg-transparent pr-6 text-[0.95rem] font-semibold text-ink focus:outline-none"

@@ -58,7 +58,7 @@ export function AdminShell({
   return (
     <div className="min-h-dvh lg:grid lg:grid-cols-[17rem_1fr]">
       {/* Desktop sidebar */}
-      <aside className="bg-navy-mesh sticky top-0 hidden h-dvh flex-col text-white lg:flex">
+      <aside className="bg-navy-900 sticky top-0 hidden h-dvh flex-col text-white lg:flex">
         <Link href="/admin" className="flex items-center gap-3 px-6 pt-7 pb-8">
           <LogoMark tone="light" className="w-10" />
           <span className="leading-tight">

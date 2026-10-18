@@ -25,7 +25,7 @@ export function ValuationSteps() {
         <ol className="relative mt-12 grid gap-4 lg:grid-cols-5 lg:gap-5">
           <span
             aria-hidden
-            className="absolute top-7 right-[10%] left-[10%] hidden h-px bg-gradient-to-r from-aqua-300 via-navy-300 to-aqua-300 lg:block"
+            className="absolute top-7 right-[10%] left-[10%] hidden h-px bg-navy-100 lg:block"
           />
           {valuationSteps.map((step, i) => (
             <li

@@ -36,7 +36,7 @@ export function SavedProperties({ properties }: { properties: Property[] }) {
       <div className="mt-8 rounded-[2rem] bg-white px-6 py-16 text-center shadow-card ring-1 ring-line/80">
         <div className="relative mx-auto h-24 w-24">
           <span className="absolute inset-0 animate-ping rounded-full bg-aqua-200/40 [animation-duration:2.5s]" />
-          <span className="relative grid h-24 w-24 place-items-center rounded-full bg-gradient-to-br from-navy-700 to-navy-950 shadow-lift">
+          <span className="relative grid h-24 w-24 place-items-center rounded-full bg-navy-800 shadow-lift">
             <Heart className="h-10 w-10 text-aqua-300" strokeWidth={2} />
           </span>
         </div>

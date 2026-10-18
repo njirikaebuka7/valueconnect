@@ -240,7 +240,7 @@ export function ValuationWizard({
       </div>
       <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-surface">
         <div
-          className="h-full rounded-full bg-gradient-to-r from-navy-700 to-aqua-500 transition-all duration-500"
+          className="h-full rounded-full bg-navy-700 transition-all duration-500"
           style={{ width: `${((step + 1) / steps.length) * 100}%` }}
         />
       </div>

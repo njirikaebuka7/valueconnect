@@ -32,7 +32,7 @@ export function ValuationSuccess({ reference, preview }: { reference: string; pr
     <div className="animate-fade-up py-4 text-center sm:py-8" role="status" aria-live="polite">
       <div className="relative mx-auto h-24 w-24">
         <span className="absolute inset-0 animate-ping rounded-full bg-aqua-300/40 [animation-duration:2s] [animation-iteration-count:2]" />
-        <span className="relative grid h-24 w-24 place-items-center rounded-full bg-gradient-to-br from-aqua-400 to-navy-700 shadow-glow">
+        <span className="relative grid h-24 w-24 place-items-center rounded-full bg-navy-700 shadow-lift">
           <Check className="h-11 w-11 text-white" strokeWidth={3} />
         </span>
       </div>

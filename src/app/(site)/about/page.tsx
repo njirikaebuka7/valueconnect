@@ -9,13 +9,14 @@ import { Accent } from "@/components/ui/section-heading";
 import { coreValues, mission, vision } from "@/lib/content";
 import { photos } from "@/lib/images";
 import { site } from "@/lib/site";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "About us",
+export const metadata: Metadata = pageMetadata({
+  title: "About Us: Registered Estate Surveyors & Valuers",
   description:
     "Valueconnect Consulting is a registered firm of Estate Surveyors & Valuers in Victoria Island, Lagos, operating under NIESV and ESVARBON guidelines.",
-  alternates: { canonical: "/about" },
-};
+  path: "/about",
+});
 
 export default function AboutPage() {
   return (
@@ -24,7 +25,7 @@ export default function AboutPage() {
         eyebrow="About us"
         title={
           <>
-            Independent value, <span className="font-accent text-gradient">signed and sealed</span>
+            Independent value, <span className="font-accent text-aqua-400">signed and sealed</span>
           </>
         }
         description="A registered firm of Estate Surveyors & Valuers helping owners, investors, lenders and institutions make property decisions on the facts."
@@ -70,7 +71,7 @@ export default function AboutPage() {
                 <div className="relative aspect-square overflow-hidden rounded-3xl bg-navy-950 shadow-card">
                   <Photo src={photos.aboutOffice} alt="" fill sizes="220px" className="object-cover" />
                 </div>
-                <div className="bg-navy-mesh rounded-3xl p-4 text-white shadow-card">
+                <div className="bg-navy-900 rounded-3xl p-4 text-white shadow-card">
                   <p className="font-brand text-2xl font-semibold">ESVARBON</p>
                   <p className="mt-1 text-xs text-navy-100/75">Registered firm. Every report signed and sealed.</p>
                 </div>
@@ -93,7 +94,6 @@ export default function AboutPage() {
                 style={{ "--reveal-delay": `${i * 100}ms` } as React.CSSProperties}
                 className="relative overflow-hidden rounded-[2rem] bg-white p-7 shadow-card ring-1 ring-line/80 sm:p-9"
               >
-                <div aria-hidden className="absolute -top-10 -right-10 h-36 w-36 rounded-full bg-aqua-100 blur-2xl" />
                 <span className="relative grid h-12 w-12 place-items-center rounded-2xl bg-navy-700 text-aqua-300">
                   <Icon className="h-5 w-5" />
                 </span>

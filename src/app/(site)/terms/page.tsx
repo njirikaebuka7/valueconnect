@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { LegalPage } from "@/components/home/legal-page";
 import { getContact } from "@/lib/settings";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Terms of use",
-  description: "Terms that apply to using the Valueconnect Consulting website.",
-  alternates: { canonical: "/terms" },
-};
+  description:
+    "Terms that apply to using the Valueconnect Consulting website.",
+  path: "/terms",
+});
 
 export default async function TermsPage() {
   const contact = await getContact();

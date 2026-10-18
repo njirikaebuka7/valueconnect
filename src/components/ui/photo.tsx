@@ -57,7 +57,7 @@ export function PhotoFallback({ className, fill, plain }: { className?: string; 
     <div
       aria-hidden
       className={cn(
-        "flex items-center justify-center bg-gradient-to-br from-navy-800 via-navy-900 to-navy-950",
+        "flex items-center justify-center bg-navy-900",
         fill && "absolute inset-0",
         className,
       )}

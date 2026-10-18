@@ -2,6 +2,8 @@ import { ContactProvider } from "@/components/layout/contact-context";
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
 import { MobileTabBar } from "@/components/layout/mobile-tab-bar";
+import { JsonLd } from "@/components/seo/json-ld";
+import { organizationJsonLd } from "@/lib/seo";
 import { getContact } from "@/lib/settings";
 
 export default async function SiteLayout({ children }: LayoutProps<"/">) {
@@ -14,6 +16,7 @@ export default async function SiteLayout({ children }: LayoutProps<"/">) {
       </main>
       <Footer contact={contact} />
       <MobileTabBar />
+      <JsonLd data={organizationJsonLd(contact)} />
     </ContactProvider>
   );
 }

@@ -11,7 +11,7 @@ import {
   YoutubeIcon,
 } from "@/components/ui/social-icons";
 import { services } from "@/lib/content";
-import type { SiteContact, SocialKey } from "@/lib/site";
+import { mapsLink, type SiteContact, type SocialKey } from "@/lib/site";
 
 const socialIcons: Record<SocialKey, typeof FacebookIcon> = {
   facebook: FacebookIcon,
@@ -98,12 +98,14 @@ export function Footer({ contact }: { contact: SiteContact }) {
         <div className="lg:col-span-3">
           <h3 className="text-sm font-bold text-white">Visit or call</h3>
           <ul className="mt-4 space-y-3.5 text-sm">
-            <li className="flex gap-3">
-              <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-aqua-400" />
-              <a href={contact.mapLink} target="_blank" rel="noopener noreferrer" className="hover:text-aqua-300">
-                {contact.address}
-              </a>
-            </li>
+            {contact.addresses.map((address) => (
+              <li key={address} className="flex gap-3">
+                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-aqua-400" />
+                <a href={mapsLink(address)} target="_blank" rel="noopener noreferrer" className="hover:text-aqua-300">
+                  {address}
+                </a>
+              </li>
+            ))}
             <li className="flex gap-3">
               <Phone className="mt-0.5 h-4 w-4 shrink-0 text-aqua-400" />
               <span>
@@ -119,9 +121,16 @@ export function Footer({ contact }: { contact: SiteContact }) {
             </li>
             <li className="flex gap-3">
               <Mail className="mt-0.5 h-4 w-4 shrink-0 text-aqua-400" />
-              <a href={`mailto:${contact.email}`} className="break-all hover:text-aqua-300">
-                {contact.email}
-              </a>
+              <span className="min-w-0">
+                {contact.emails.map((email, i) => (
+                  <span key={email}>
+                    {i > 0 && ", "}
+                    <a href={`mailto:${email}`} className="break-all hover:text-aqua-300">
+                      {email}
+                    </a>
+                  </span>
+                ))}
+              </span>
             </li>
           </ul>
         </div>

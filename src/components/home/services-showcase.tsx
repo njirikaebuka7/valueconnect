@@ -32,7 +32,7 @@ export function ServiceCard({ slug, className }: { slug: (typeof services)[numbe
         </span>
       </div>
       <div className="relative flex flex-1 flex-col px-5 pt-9 pb-5">
-        <span className="absolute -top-7 left-5 grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-navy-700 to-navy-950 text-aqua-300 shadow-[0_12px_24px_-10px_rgb(1_51_152/0.8)] ring-4 ring-white">
+        <span className="absolute -top-7 left-5 grid h-14 w-14 place-items-center rounded-2xl bg-navy-800 text-aqua-300 shadow-[0_12px_24px_-10px_rgb(1_51_152/0.8)] ring-4 ring-white">
           <ServiceIcon icon={s.icon} className="h-6 w-6" />
         </span>
         <h3 className="text-lg font-bold">{s.title}</h3>

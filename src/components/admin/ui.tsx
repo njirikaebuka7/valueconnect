@@ -71,7 +71,7 @@ export function StatCard({
     <div
       className={cn(
         "group relative h-full overflow-hidden rounded-2xl p-4 ring-1 transition sm:p-5",
-        tone === "dark" ? "bg-navy-mesh text-white ring-navy-900" : "bg-white shadow-card ring-line hover:shadow-lift",
+        tone === "dark" ? "bg-navy-900 text-white ring-navy-900" : "bg-white shadow-card ring-line hover:shadow-lift",
       )}
     >
       <div className="flex items-start justify-between gap-2">

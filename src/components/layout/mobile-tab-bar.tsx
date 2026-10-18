@@ -32,8 +32,8 @@ export function MobileTabBar() {
                 <Link href={href} className="-mt-5 flex flex-col items-center gap-1" aria-current={active ? "page" : undefined}>
                   <span
                     className={cn(
-                      "grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-navy-700 to-navy-950 shadow-[0_10px_24px_-8px_rgb(1_51_152/0.8)] ring-4 ring-white transition active:scale-95",
-                      active && "from-aqua-500 to-navy-700",
+                      "grid h-14 w-14 place-items-center rounded-2xl shadow-[0_10px_24px_-8px_rgb(1_51_152/0.8)] ring-4 ring-white transition active:scale-95",
+                      active ? "bg-navy-600" : "bg-navy-800",
                     )}
                   >
                     <LogoMark tone="light" className="w-8" />

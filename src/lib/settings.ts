@@ -1,7 +1,7 @@
 import "server-only";
 import { unstable_cache } from "next/cache";
 import { cache } from "react";
-import { defaultContactSettings, toContact, type ContactSettings } from "./site";
+import { defaultContactSettings, socialNetworks, toContact, type ContactSettings, type SocialKey } from "./site";
 import { isSupabaseConfigured } from "./supabase/config";
 import { createPublicClient } from "./supabase/public";
 
@@ -17,13 +17,18 @@ const readSettings = unstable_cache(
       if (error) console.error("getContactSettings", error.message);
       return defaultContactSettings;
     }
-    const out = { ...defaultContactSettings };
-    for (const key of Object.keys(out) as (keyof ContactSettings)[]) {
-      out[key] = typeof data[key] === "string" ? data[key] : "";
-    }
-    return out;
+    const list = (v: unknown) => (Array.isArray(v) ? v.filter((x): x is string => typeof x === "string") : []);
+    const text = (v: unknown) => (typeof v === "string" ? v : "");
+    return {
+      addresses: list(data.addresses),
+      phones: list(data.phones),
+      emails: list(data.emails),
+      whatsapp: text(data.whatsapp),
+      ...(Object.fromEntries(socialNetworks.map((n) => [n.key, text(data[n.key])])) as Record<SocialKey, string>),
+    };
   },
-  ["site-settings"],
+  // v2: addresses, phones and emails became lists.
+  ["site-settings", "v2"],
   { tags: [SETTINGS_TAG], revalidate: 3600 },
 );
 

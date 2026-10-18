@@ -4,13 +4,17 @@ import { ButtonLink } from "@/components/ui/button";
 import { Accent, SectionHeading } from "@/components/ui/section-heading";
 import { WhatsAppIcon } from "@/components/ui/social-icons";
 import { faqs } from "@/lib/content";
+import { JsonLd } from "@/components/seo/json-ld";
+import { faqJsonLd } from "@/lib/seo";
 import { getContact } from "@/lib/settings";
 import { whatsappLink } from "@/lib/site";
 
-export async function FaqSection({ limit }: { limit?: number }) {
+export async function FaqSection({ limit, structuredData = false }: { limit?: number; structuredData?: boolean }) {
   const contact = await getContact();
+  const items = limit ? faqs.slice(0, limit) : faqs;
   return (
     <section className="py-20 sm:py-24">
+      {structuredData && <JsonLd data={faqJsonLd(items)} />}
       <div className="container-x grid gap-10 lg:grid-cols-12 lg:gap-14">
         <div className="lg:col-span-5">
           <SectionHeading
@@ -24,9 +28,8 @@ export async function FaqSection({ limit }: { limit?: number }) {
           />
           <div
             data-reveal
-            className="bg-navy-mesh relative mt-8 overflow-hidden rounded-[2rem] p-6 text-white shadow-lift sm:p-8"
+            className="bg-navy-900 relative mt-8 overflow-hidden rounded-[2rem] p-6 text-white shadow-lift sm:p-8"
           >
-            <div aria-hidden className="absolute -top-16 -right-16 h-48 w-48 rounded-full bg-aqua-500/25 blur-3xl" />
             <span className="glass grid h-12 w-12 place-items-center rounded-2xl text-aqua-300">
               <CalendarCheck className="h-5 w-5" />
             </span>
@@ -54,7 +57,7 @@ export async function FaqSection({ limit }: { limit?: number }) {
           </div>
         </div>
         <div data-reveal style={{ "--reveal-delay": "120ms" } as React.CSSProperties} className="lg:col-span-7 lg:pt-4">
-          <Accordion items={limit ? faqs.slice(0, limit) : faqs} />
+          <Accordion items={items} />
         </div>
       </div>
     </section>

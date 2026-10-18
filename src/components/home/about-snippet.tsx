@@ -38,7 +38,6 @@ export function AboutSnippet() {
                 <p className="text-xs text-muted">by a registered valuer</p>
               </div>
             </div>
-            <div aria-hidden className="absolute -top-6 -left-6 -z-10 h-32 w-32 rounded-full bg-aqua-200/60 blur-2xl" />
           </div>
 
           <div data-reveal style={{ "--reveal-delay": "120ms" } as React.CSSProperties}>

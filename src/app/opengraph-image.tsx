@@ -24,8 +24,7 @@ export default async function OpengraphImage() {
           justifyContent: "space-between",
           padding: 72,
           color: "white",
-          background:
-            "radial-gradient(60% 80% at 90% 0%, rgba(3,203,250,0.35), transparent 60%), radial-gradient(50% 70% at 0% 100%, rgba(18,63,179,0.7), transparent 60%), linear-gradient(160deg, #051c58, #04123a)",
+          background: "#051c58",
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 24 }}>

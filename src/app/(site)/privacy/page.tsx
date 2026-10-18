@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import { LegalPage } from "@/components/home/legal-page";
 import { getContact } from "@/lib/settings";
 import { site } from "@/lib/site";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Privacy policy",
-  description: "How Valueconnect Consulting collects, uses and protects your personal data.",
-  alternates: { canonical: "/privacy" },
-};
+  description:
+    "How Valueconnect Consulting collects, uses and protects your personal data.",
+  path: "/privacy",
+});
 
 export default async function PrivacyPage() {
   const contact = await getContact();

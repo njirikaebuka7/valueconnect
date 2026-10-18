@@ -30,7 +30,7 @@ export function ConsultationForm({ defaultService }: { defaultService?: string }
     const reference = state.data.reference;
     return (
       <div className="animate-fade-up rounded-3xl bg-surface p-7 text-center ring-1 ring-line sm:p-10" role="status">
-        <span className="mx-auto grid h-16 w-16 place-items-center rounded-2xl bg-aqua-500 text-navy-950 shadow-glow">
+        <span className="mx-auto grid h-16 w-16 place-items-center rounded-2xl bg-aqua-500 text-navy-950 shadow-card">
           <CalendarCheck className="h-8 w-8" />
         </span>
         <h3 className="mt-6 text-2xl font-bold">Request received</h3>

@@ -28,13 +28,6 @@ export function PageHero({
         <Photo src={image} alt="" fill preload plainFallback sizes="100vw" quality={70} className="-z-20 object-cover opacity-90" />
         <div className="absolute inset-0 -z-10 bg-gradient-to-b from-navy-950/75 via-navy-950/45 to-navy-950/85" />
         <div
-          className="absolute inset-0 -z-10 opacity-80"
-          style={{
-            background:
-              "radial-gradient(55% 70% at 85% 0%, rgb(3 203 250 / 0.22), transparent 60%), radial-gradient(45% 60% at 0% 100%, rgb(18 63 179 / 0.5), transparent 60%)",
-          }}
-        />
-        <div
           className={cn(
             "container-x relative flex flex-col items-center text-center",
             size === "lg" ? "pt-16 pb-20 sm:pt-24 sm:pb-28" : "pt-14 pb-14 sm:pt-20 sm:pb-20",

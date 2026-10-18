@@ -25,22 +25,21 @@ export type SocialKey = (typeof socialNetworks)[number]["key"];
 
 /**
  * Contact details and social links as the admin edits them under Settings
- * (the public.site_settings row). Empty strings mean "not set".
+ * (the public.site_settings row). The first address, phone and email in each
+ * list is the main one. Empty strings mean "not set".
  */
 export type ContactSettings = {
-  address: string;
-  phone_1: string;
-  phone_2: string;
+  addresses: string[];
+  phones: string[];
+  emails: string[];
   whatsapp: string;
-  email: string;
 } & Record<SocialKey, string>;
 
 export const defaultContactSettings: ContactSettings = {
-  address: "17, Musa Yar'adua Street, Off Kofo Abayomi Street, Victoria Island, Lagos.",
-  phone_1: "0814 483 3999",
-  phone_2: "0811 090 0644",
+  addresses: ["17, Musa Yar'adua Street, Off Kofo Abayomi Street, Victoria Island, Lagos."],
+  phones: ["0814 483 3999", "0811 090 0644"],
+  emails: ["info@valueconnect.com.ng"],
   whatsapp: "0814 483 3999",
-  email: "info@valueconnect.com.ng",
   facebook: "",
   instagram: "",
   x: "",
@@ -51,13 +50,18 @@ export const defaultContactSettings: ContactSettings = {
 
 /** What the site renders: settings with links worked out. */
 export interface SiteContact {
+  /** Main office, used for the map and directions. */
   address: string;
+  addresses: string[];
   mapLink: string;
   mapEmbed: string;
+  /** Main line first; it backs every "Call" button. */
   phones: { display: string; tel: string }[];
   /** International digits for wa.me, e.g. 2348144833999. */
   whatsapp: string;
+  /** Main inbox. */
   email: string;
+  emails: string[];
   /** Only the networks that have a link, in display order. */
   socials: { key: SocialKey; label: string; href: string }[];
 }
@@ -70,18 +74,25 @@ export function phoneDigits(raw: string) {
   return digits;
 }
 
+const clean = (list: string[] | undefined) => (list ?? []).map((v) => v.trim()).filter(Boolean);
+
+export const mapsLink = (address: string) => `https://maps.google.com/?q=${encodeURIComponent(address)}`;
+
 export function toContact(s: ContactSettings): SiteContact {
-  const q = encodeURIComponent(s.address);
+  // A list can only be empty if the row is unreadable; fall back rather than render no phone.
+  const addresses = clean(s.addresses).length ? clean(s.addresses) : defaultContactSettings.addresses;
+  const phones = clean(s.phones).length ? clean(s.phones) : defaultContactSettings.phones;
+  const emails = clean(s.emails).length ? clean(s.emails) : defaultContactSettings.emails;
+  const q = encodeURIComponent(addresses[0]);
   return {
-    address: s.address,
-    mapLink: `https://maps.google.com/?q=${q}`,
+    address: addresses[0],
+    addresses,
+    mapLink: mapsLink(addresses[0]),
     mapEmbed: `https://www.google.com/maps?q=${q}&output=embed`,
-    phones: [s.phone_1, s.phone_2]
-      .map((p) => p.trim())
-      .filter(Boolean)
-      .map((display) => ({ display, tel: `+${phoneDigits(display)}` })),
-    whatsapp: phoneDigits(s.whatsapp || s.phone_1),
-    email: s.email,
+    phones: phones.map((display) => ({ display, tel: `+${phoneDigits(display)}` })),
+    whatsapp: phoneDigits(s.whatsapp || phones[0]),
+    email: emails[0],
+    emails,
     socials: socialNetworks.filter((n) => s[n.key]).map((n) => ({ key: n.key, label: n.label, href: s[n.key] })),
   };
 }

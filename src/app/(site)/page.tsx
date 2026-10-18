@@ -13,15 +13,17 @@ import { ValuationSteps } from "@/components/home/valuation-steps";
 import { WhereWeOperate } from "@/components/home/where-we-operate";
 import { WhyChooseUs } from "@/components/home/why-choose-us";
 import { getPublishedProperties } from "@/lib/data/properties";
+import { pageMetadata } from "@/lib/seo";
 
 export const revalidate = 300;
 
-export const metadata: Metadata = {
-  title: { absolute: "Valueconnect Consulting | Estate Surveyors & Valuers, Lagos" },
+export const metadata: Metadata = pageMetadata({
+  title: "Valueconnect Consulting | Estate Surveyors & Valuers, Lagos",
+  absoluteTitle: true,
   description:
-    "ESVARBON-registered Estate Surveyors & Valuers in Victoria Island, Lagos: independent valuations, land titles, agency, property management and auctions.",
-  alternates: { canonical: "/" },
-};
+    "ESVARBON-registered Estate Surveyors & Valuers in Lagos: valuations of land, buildings and plant & machinery, plus estate agency, land titles and auctions.",
+  path: "/",
+});
 
 export default async function HomePage() {
   const properties = await getPublishedProperties();
@@ -62,7 +64,7 @@ export default async function HomePage() {
         <WhereWeOperate properties={cityCards} />
       </div>
       <div className="cv-auto">
-        <FaqSection limit={6} />
+        <FaqSection limit={6} structuredData />
       </div>
       <div className="cv-auto">
         <CtaBand />
