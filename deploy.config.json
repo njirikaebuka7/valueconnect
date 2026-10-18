@@ -5,7 +5,7 @@
     "projectRef": "zbzqsjbrwvvdlslomiib",
     "url": "https://zbzqsjbrwvvdlslomiib.supabase.co"
   },
-  "adminEmails": ["admin@trulicares.com"],
+  "adminEmails": ["admin@valueconnect.com.ng"],
   "vercel": {
     "project": "valueconnect",
     "domains": ["valueconnect.com.ng", "www.valueconnect.com.ng"]
